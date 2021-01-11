@@ -64,6 +64,7 @@ CREATE TABLE public.posts (
     published boolean DEFAULT false NOT NULL,
     is_private boolean DEFAULT false NOT NULL,
     title varchar(255) NOT NULL,
+    body text NOT NULL,
     description varchar(255),
     thumbnail varchar(255),
     slug varchar(255),
