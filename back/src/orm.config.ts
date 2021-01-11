@@ -28,5 +28,3 @@ export const config: TypeOrmModuleOptions = inContainer
       synchronize: true,
       entities: ['dist/**/*.entity{.ts,.js}'],
     };
-
-// GRANT ALL PRIVILEGES ON DATABASE velog to velog;
