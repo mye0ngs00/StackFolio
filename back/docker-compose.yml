@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  server:
+    build:
+      context: ./
+      target: dev
+    restart: unless-stopped
+    command: npm run start:dev
+    ports:
+      - '3000:3000'
+    environment:
+      - IN_CONTAINER=true
+      - PORT=3000
+      - DATABASE_URL=postgresql://dohan:passwd@pg:5432/velog?schema=public
+      # Connection URL: postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=SCHEMA
+    volumes:
+      - ./:/app:delegated
+      - /app/node_modules
+    depends_on:
+      pg:
+        condition: service_healthy
+
+  pg:
+    image: postgres:13.1
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=passwd
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: pg_isready -h 127.0.0.1
