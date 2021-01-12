@@ -1,3 +1,17 @@
 # Velog Clone Frontend
 
-## React
+## /src
+## /components
+Directory for components
+### /home
+  - main page: Home.tsx
+
+### /sections
+  - Header.tsx
+
+### /material
+  - basic components(buttons, textfield, ...etc)
+### /styles
+  - global-style.ts: 모든 페이지에 적용될 Global Style을 정의합니다.
+  - styled.t.ts: styled-components의 DefaultTheme를 재정의함으로써 라이트/다크모드를 사용할 수 있도록 합니다.
+  - theme.ts: 라이트 / 다크 모드에 적용될 색상을 정의합니다. / media query를 구현합니다.
