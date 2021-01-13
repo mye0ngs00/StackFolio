@@ -2,6 +2,7 @@ import Header from 'components/sections/Header';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from 'components/home/Home';
 import Playground from './Playground';
+import React from 'react';
 
 const Routes = () => {
     return(
