@@ -62,13 +62,3 @@ const light: DefaultTheme = {
   };
 
 export const themes = { dark, light };
-
-// Media Query
-const customMediaQuery = (maxWidth: number) => `@media (max-width: ${maxWidth}px)`;
-
-export const media = {
-  custom: customMediaQuery,
-  desktop: customMediaQuery(1024),
-  tablet: customMediaQuery(768),
-  phone: customMediaQuery(376),
-};
