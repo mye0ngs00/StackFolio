@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  Unique,
 } from 'typeorm';
 import { User } from './user.entity';
 
@@ -18,35 +19,43 @@ export interface SocialLinks {
   homepage?: string;
 }
 
-@Entity('user_profiles')
+@Entity()
+@Unique(['username'])
 export class UserProfile {
+  /** Columns */
+
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
-  @Column('timestamp with time zone')
+  @Column('timestamptz')
   @CreateDateColumn()
   readonly created_at: Date;
 
-  @Column('timestamp with time zone')
+  @Column('timestamptz')
   @UpdateDateColumn()
   readonly updated_at: Date;
 
-  @Column({ unique: true, length: 255 })
+  @Column({ length: 255 })
   username: string;
 
-  @Column({ nullable: true, length: 255 })
+  @Column({ length: 255, nullable: true })
   bio?: string;
 
-  @Column({ nullable: true, length: 255 })
+  @Column('text', { nullable: true })
+  about?: string;
+
+  @Column({ length: 255, nullable: true })
   avatar?: string;
 
   @Column({ type: 'jsonb', default: {} })
   social_links: SocialLinks;
 
   @Column('uuid')
-  user_id: string;
+  fk_user_id: string;
 
-  @OneToOne((returns) => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
+  /** Relations */
+
+  @OneToOne((type) => User, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'fk_user_id', referencedColumnName: 'id' })
   user: User;
 }

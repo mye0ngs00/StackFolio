@@ -15,7 +15,7 @@
 
 현재 디렉터리에 있는 코드를 server에 **bind-mount**해서 local에서 수정하면 컨테이너에 바로 반영이 된다. 또한, Local에 `npm install`로 `node_modules`를 생성하지 않아도 컨테이너 환경에서 생성된 `node_modules` 파일이 local에 mount된다.
 
-최초 실행시 **db-data**라는 디렉터리가 (postgres의 모든 data) 자동 생성이 되면서 현재 디렉터리에 있는 `init-db.sql`을 수행한다 (최초 1회만 수행). 만약 컨테이너 db를 초기화하고 싶다면 `db-data` 디렉터리를 지우고 `docker-compose up --build`로 시작하면 된다.
+최초 실행시 **db/data**라는 디렉터리가 (postgres의 모든 data) 자동 생성이 되면서 **db** 디렉터리에 있는 `init.sql`을 수행한다 (최초 1회만 수행). 만약 컨테이너 db를 초기화하고 싶다면 `db/data`를 지우고 `docker-compose up --build`로 시작하면 된다.
 
 돌아가고 있는 postgres 컨테이너에 직접 접속해서 정보를 보고 싶다면 다른 터미널 창을 열어서 `docker ps`를 쳐서 postgres 컨테이너의 `CONTAINER ID`를 찾고 복사한다. 그리고 `docker exec -it <container-id> bash`를 입력하면 컨테이너 shell에 연결이 된다.
 
@@ -32,6 +32,15 @@ psql -U postgres
 SELECT email FROM users WHERE id = 'asdf';
 -- 종료
 \q
+```
+
+또는, 아래와 username과 database를 지정해서 접속할 수 있다.
+
+```sql
+-- Database 'velog'에 username 'dohan'으로 접속
+psql -U dohan velog
+-- 현재 연결 정보 출력
+\conninfo
 ```
 
 컨테이너를 종료하고 싶으면 SIGINT (ctrl + c) 신호를 보내면 된다.

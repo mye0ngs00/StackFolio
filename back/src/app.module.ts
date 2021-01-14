@@ -4,7 +4,6 @@ import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
-import { FollowersModule } from './followers/followers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from './orm.config';
 
@@ -16,7 +15,6 @@ import { config } from './orm.config';
     PostsModule,
     CommentsModule,
     LikesModule,
-    FollowersModule,
   ],
   controllers: [],
   providers: [],
