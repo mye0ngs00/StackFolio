@@ -1,0 +1,9 @@
+{
+  "short_name": "velog",
+  "name": "Clone Velog",
+  "icons": [
+    
+  ],
+  "start_url": ".",
+  "display": "standalone"
+}
