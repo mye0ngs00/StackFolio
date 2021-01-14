@@ -9,6 +9,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IsString, IsBoolean, IsOptional, IsUUID } from 'class-validator';
 
 @Entity()
 export class Comment {
@@ -26,15 +27,20 @@ export class Comment {
   readonly updated_at: Date;
 
   @Column('text')
+  @IsString()
   contents: string;
 
   @Column({ default: false })
+  @IsBoolean()
+  @IsOptional()
   deleted: boolean;
 
   @Column('uuid')
+  @IsUUID('4')
   user_id: string;
 
   @Column('uuid')
+  @IsUUID('4')
   post_id: string;
 
   /** Relations */

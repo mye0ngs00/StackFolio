@@ -6,6 +6,7 @@ import {
   Check,
   Unique,
 } from 'typeorm';
+import { IsUUID } from 'class-validator';
 
 @Entity()
 @Unique(['user_id', 'post_id'])
@@ -27,11 +28,14 @@ export class Like {
   readonly created_at: Date;
 
   @Column('uuid')
+  @IsUUID('4')
   user_id: string;
 
   @Column('uuid', { nullable: true })
+  @IsUUID('4')
   post_id: string;
 
   @Column('uuid', { nullable: true })
+  @IsUUID('4')
   comment_id: string;
 }

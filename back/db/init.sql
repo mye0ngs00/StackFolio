@@ -7,3 +7,7 @@ CREATE DATABASE velog
     LC_COLLATE 'C'
     LC_CTYPE 'C'
     CONNECTION LIMIT 500;
+
+\c velog
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

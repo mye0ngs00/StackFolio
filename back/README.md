@@ -56,3 +56,8 @@ psql -U dohan velog
 가장 쉬운 방법은 `docker-compose up --build`로 시작하고 종료한 뒤, 다시 시작하기 위해 `docker-compose down && docker-compose up --build`를 하면 된다.
 
 항상 그렇지만 알 수 없는 이유로 안돌아갈 수도 있다..
+
+## 고민중
+
+- comment reply를 어떻게 구현해야 할까?
+- 외래키에 @IsUUID('4') validation을 넣었는데 실제 필요한가? 만약 TypeORM이 자동으로 넣어주는거라면 error가 발생할텐데 그런 경우엔 빼자.

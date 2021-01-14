@@ -10,6 +10,14 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsEmail,
+  IsBoolean,
+} from 'class-validator';
+
 import { Post } from '../../posts/entity/post.entity';
 import { Comment } from 'src/comments/entity/comment.entity';
 
@@ -46,15 +54,21 @@ export class User {
     enum: Provider,
     default: Provider.LOCAL,
   })
+  @IsEnum(Provider)
+  @IsOptional()
   provider: Provider;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
   social_id?: string;
 
   @Column({ length: 255 })
+  @IsEmail()
   email: string;
 
   @Column({ default: false })
+  @IsBoolean()
+  @IsOptional()
   is_verified: boolean;
 
   /** Relations */

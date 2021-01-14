@@ -7,6 +7,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+import { IsString, IsUUID } from 'class-validator';
 
 @Entity()
 export class Verification {
@@ -20,9 +21,11 @@ export class Verification {
   readonly created_at: Date;
 
   @Column({ length: 255 })
+  @IsString()
   code: string;
 
   @Column('uuid')
+  @IsUUID('4')
   user_id: string;
 
   /** Relations */

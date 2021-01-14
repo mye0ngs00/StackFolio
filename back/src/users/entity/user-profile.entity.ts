@@ -9,6 +9,13 @@ import {
   Unique,
 } from 'typeorm';
 import { User } from './user.entity';
+import {
+  IsString,
+  IsOptional,
+  Length,
+  IsObject,
+  IsUUID,
+} from 'class-validator';
 
 export interface SocialLinks {
   email?: string;
@@ -36,21 +43,32 @@ export class UserProfile {
   readonly updated_at: Date;
 
   @Column({ length: 255 })
+  @IsString()
+  @Length(3, 50)
   username: string;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
+  @IsOptional()
   bio?: string;
 
   @Column('text', { nullable: true })
+  @IsString()
+  @IsOptional()
   about?: string;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
+  @IsOptional()
   avatar?: string;
 
   @Column({ type: 'jsonb', default: {} })
-  social_links: SocialLinks;
+  @IsObject()
+  @IsOptional()
+  social_links?: SocialLinks;
 
   @Column('uuid')
+  @IsUUID('4')
   user_id: string;
 
   /** Relations */

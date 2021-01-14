@@ -9,6 +9,7 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
+import { IsOptional, IsString, IsUUID } from 'class-validator';
 import { User } from '../../users/entity/user.entity';
 import { PostInformation } from './post-information.entity';
 import { PostMetadata } from './post-metadata.entity';
@@ -30,18 +31,23 @@ export class Post {
   readonly updated_at: Date;
 
   @Column({ length: 255 })
+  @IsString()
   title: string;
 
   @Column('text')
+  @IsString()
   contents: string;
 
   @Column('uuid')
+  @IsUUID('4')
   user_id: string;
 
-  @Column('uuid', { nullable: true })
+  @Column('uuid')
+  @IsUUID('4')
   post_information_id: string;
 
   @Column('uuid')
+  @IsUUID('4')
   post_metadata_id: string;
 
   /** Relations */

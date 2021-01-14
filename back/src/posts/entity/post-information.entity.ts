@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { Post } from './post.entity';
+import { IsString, IsOptional } from 'class-validator';
 
 @Entity()
 export class PostInformation {
@@ -24,12 +25,18 @@ export class PostInformation {
   readonly updated_at: Date;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
+  @IsOptional()
   description?: string;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
+  @IsOptional()
   thumbnail?: string;
 
   @Column({ length: 255, nullable: true })
+  @IsString()
+  @IsOptional()
   slug?: string;
 
   /** Relations */
