@@ -51,11 +51,11 @@ export class UserProfile {
   social_links: SocialLinks;
 
   @Column('uuid')
-  fk_user_id: string;
+  user_id: string;
 
   /** Relations */
 
   @OneToOne((type) => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'fk_user_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 }
