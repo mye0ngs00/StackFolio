@@ -62,7 +62,7 @@ export class AuthController {
     return this.authService.sendLoginMail(email);
   }
 
-  @Get('login/:code')
+  @Get('verify/:code')
   loginWithCode(@Param('code') code: string) {
     return this.authService.loginWithCode(code);
   }
