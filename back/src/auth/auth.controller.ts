@@ -6,37 +6,39 @@ import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
+  constructor(
+    private readonly authService: AuthService,
+    private readonly usersService: UsersService,
+  ) {}
 
-    constructor(private readonly authService: AuthService, private readonly usersService: UsersService){}
+  @Get()
+  getAuth() {
+    return { message: 'auth' };
+  }
 
-    @Get()
-    getAuth(){
-        return { message: "auth"};
-    }
+  @Post('register')
+  register(@Body() userData: CreateUserDto) {
+    return this.authService.register(userData);
+  }
 
-    @Post("register")
-    register(@Body() userData: CreateUserDto) {
-        return this.authService.register(userData);
-    }
-    
-    @UseGuards(AuthGuard('jwt'))
-    @Get('profile')
-    getProfile(@Req() req) {
-        return req.user;
-    }
-    
-    @UseGuards(AuthGuard("local"))
-    @Post("local")
-    async login(@Req() req) {
-        return this.authService.login(req.user);
-    }
-    @Get('google')
-    @UseGuards(AuthGuard('google'))
-    async googleAuth(@Req() req) {}
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  getProfile(@Req() req) {
+    return req.user;
+  }
 
-    @Get('google/callback')
-    @UseGuards(AuthGuard('google'))
-    googleAuthRedirect(@Req() req) {
-        return this.authService.googleLogin(req);
-    }
+  @UseGuards(AuthGuard('local'))
+  @Post('local')
+  async login(@Req() req) {
+    return this.authService.login(req.user);
+  }
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth(@Req() req) {}
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  googleAuthRedirect(@Req() req) {
+    return this.authService.googleLogin(req);
+  }
 }
