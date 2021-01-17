@@ -9,7 +9,13 @@ const isProd = process.env.NODE_ENV === 'production';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   if (isProd) {
     app.use(helmet());
@@ -23,13 +29,6 @@ async function bootstrap() {
     // https://docs.nestjs.com/fundamentals/lifecycle-events#application-shutdown
     app.enableShutdownHooks();
   }
-  app.useGlobalPipes(
-      new ValidationPipe({
-          whitelist: true,
-          forbidNonWhitelisted: true,
-          transform: true,
-      }),
-  );
 
   const port = +process.env.PORT || 3000;
 

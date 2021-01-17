@@ -6,6 +6,7 @@ import { CommentsModule } from './comments/comments.module';
 import { LikesModule } from './likes/likes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from './orm.config';
+import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { config } from './orm.config';
     PostsModule,
     CommentsModule,
     LikesModule,
+    MailModule,
   ],
   controllers: [],
   providers: [],

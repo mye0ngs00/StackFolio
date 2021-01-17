@@ -13,16 +13,17 @@ import { UserRepository } from 'src/users/repository/UserRepository';
 import { UserProfileRepository } from 'src/users/repository/UserProfileRepository';
 
 @Module({
-    imports:[
-        TypeOrmModule.forFeature([UserRepository, UserProfileRepository]),
-        UsersModule, 
-        PassportModule, 
-        JwtModule.register({
-        secret: jwtConstants.secret,  //process.env.JWT_SECRET
-        signOptions:{expiresIn: "1h"},
-    })],
+  imports: [
+    TypeOrmModule.forFeature([UserRepository, UserProfileRepository]),
+    UsersModule,
+    PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret, //process.env.JWT_SECRET
+      signOptions: { expiresIn: '1h' },
+    }),
+  ],
   providers: [AuthService, GoogleStrategy, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
-  exports:[AuthService],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -9,6 +9,7 @@ import {
   Check,
   ManyToMany,
   JoinTable,
+  OneToOne,
 } from 'typeorm';
 import {
   IsString,
@@ -20,6 +21,7 @@ import {
 
 import { Post } from '../../posts/entity/post.entity';
 import { Comment } from 'src/comments/entity/comment.entity';
+import { UserProfile } from './user-profile.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -89,4 +91,7 @@ export class User {
 
   @OneToMany((type) => Comment, (comment) => comment.user)
   comments: Comment[];
+
+  @OneToOne((type) => UserProfile, (userProfile) => userProfile.user)
+  profile: UserProfile;
 }

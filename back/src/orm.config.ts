@@ -39,7 +39,7 @@ export const config: TypeOrmModuleOptions = inContainer
   : {
       type: 'postgres',
       username: 'postgres',
-      password: 'root',
+      password: 'dhfpswl112',
       port: 5432,
       host: '127.0.0.1',
       database: 'nest-typeorm',
