@@ -74,11 +74,8 @@ export class AuthService {
     };
   }
 
+  // 그냥 이메일로 로그인 시
   async sendRegisterMail(email: string) {
-    const user = await this.userRepository.findOne({ email });
-    if (user) {
-      throw new BadRequestException('User is already registered');
-    }
     const register = await this.registerRepository.createRegister({ email });
 
     // register.code + register.email
