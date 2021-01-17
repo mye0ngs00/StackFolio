@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
+import { SendMailDto } from './dto/send-mail.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
@@ -52,12 +53,12 @@ export class AuthController {
   }
 
   @Post('send-register-mail')
-  sendRegisterMail(@Body() { email }) {
+  sendRegisterMail(@Body() { email }: SendMailDto) {
     return this.authService.sendRegisterMail(email);
   }
 
   @Post('send-login-mail')
-  sendLoginMail(@Body() { email }) {
+  sendLoginMail(@Body() { email }: SendMailDto) {
     return this.authService.sendLoginMail(email);
   }
 

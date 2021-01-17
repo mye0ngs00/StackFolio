@@ -1,8 +1,6 @@
 import { BadRequestException, Injectable, Req, Res } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/entity/user.entity';
-import { UserProfile } from 'src/users/entity/user-profile.entity';
 import { UserRepository } from 'src/users/repository/user.repository';
 import { UserProfileRepository } from 'src/users/repository/user-profile.repository';
 import { RegisterRepository } from './repository/register.repository';
@@ -17,7 +15,6 @@ export class AuthService {
     private readonly registerRepository: RegisterRepository,
     private readonly verificationRepository: VerificationRepository,
     private readonly userRepository: UserRepository,
-    private readonly userProfileRepository: UserProfileRepository,
   ) {}
 
   async validateUser(username: string, email: string): Promise<any> {
@@ -34,6 +31,12 @@ export class AuthService {
 
   async register(data: CreateUserDto) {
     const newUser = await this.userRepository.createNewUser(data);
+
+    // 사용자가 가입했으면 register를 위해 만든 record 삭제
+    await this.registerRepository.delete({
+      code: data.register_code,
+      email: data.email,
+    });
 
     // 최초 가입시 토큰만 발행해줘도 될 것 같은데 (내 프로필 들어갈 때 토큰을 가지고 request를 날릴 것이므로)
     // velog도 보면 첫 페이지에 필요한 데이터를 local storage에 담긴 하는데 우리는 어떻게 할까요?
@@ -87,17 +90,21 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('User does not exist');
     }
+
     const verification = this.verificationRepository.create({ user });
+    await this.verificationRepository.save(verification);
 
     // verification.code
     /** @todo Send mail with a login link [http://<client>/verify?code={code}] */
   }
 
   async loginWithCode(code: string) {
-    const user = await this.verificationRepository.verifyCodeAndGetUser(code);
+    const userProfile = await this.verificationRepository.verifyCodeAndGetUserProfile(
+      code,
+    );
     return {
-      user,
-      access_token: this.jwtService.sign({ userId: user.id }),
+      profile: userProfile,
+      access_token: this.jwtService.sign({ userId: userProfile.user_id }),
     };
   }
 }
