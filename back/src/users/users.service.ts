@@ -4,8 +4,8 @@ import { DeleteUserDTO } from './dto/delete-user.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
-import { UserProfileRepository } from './repository/UserProfileRepository';
-import { UserRepository } from './repository/UserRepository';
+import { UserProfileRepository } from './repository/user-profile.repository';
+import { UserRepository } from './repository/user.repository';
 
 @Injectable()
 export class UsersService {
@@ -38,10 +38,6 @@ export class UsersService {
     );
     user.profile.username = updateUser.username;
     await this.userRepository.save(user);
-    await this.userProfileRepository.save(user.profile);
-    // user, userprofile entity 1:1관계를 두 파일데 다 명시 해놓음
-    // userrepository랑 userprofilerepository를 둘다 저장을 해줘야 하나?
-
     return user;
   }
 

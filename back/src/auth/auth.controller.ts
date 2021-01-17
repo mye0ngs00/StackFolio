@@ -1,44 +1,68 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
+import { GoogleAuthGuard } from './guards/google-auth.guard';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly usersService: UsersService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Get()
-  getAuth() {
+  getAuth(@Req() req) {
+    console.log(req.cookies);
     return { message: 'auth' };
   }
 
   @Post('register')
-  register(@Body() userData: CreateUserDto) {
-    return this.authService.register(userData);
+  register(@Body() data: CreateUserDto) {
+    return this.authService.register(data);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Req() req) {
     return req.user;
   }
 
-  @UseGuards(AuthGuard('local'))
+  @UseGuards(LocalAuthGuard)
   @Post('local')
   async login(@Req() req) {
     return this.authService.login(req.user);
   }
+
   @Get('google')
-  @UseGuards(AuthGuard('google'))
-  async googleAuth(@Req() req) {}
+  @UseGuards(GoogleAuthGuard)
+  async googleAuth() {}
 
   @Get('google/callback')
-  @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req);
+  @UseGuards(GoogleAuthGuard)
+  googleAuthRedirect(@Req() req, @Res({ passthrough: true }) res) {
+    return this.authService.socialLogin(req, res);
+  }
+
+  @Post('send-register-mail')
+  sendRegisterMail(@Body() { email }) {
+    return this.authService.sendRegisterMail(email);
+  }
+
+  @Post('send-login-mail')
+  sendLoginMail(@Body() { email }) {
+    return this.authService.sendLoginMail(email);
+  }
+
+  @Get('login/:code')
+  loginWithCode(@Param('code') code: string) {
+    return this.authService.loginWithCode(code);
   }
 }

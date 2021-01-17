@@ -92,6 +92,8 @@ export class User {
   @OneToMany((type) => Comment, (comment) => comment.user)
   comments: Comment[];
 
-  @OneToOne((type) => UserProfile, (userProfile) => userProfile.user)
+  @OneToOne((type) => UserProfile, (userProfile) => userProfile.user, {
+    cascade: true,
+  })
   profile: UserProfile;
 }

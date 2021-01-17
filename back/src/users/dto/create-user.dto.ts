@@ -1,11 +1,14 @@
-import { IsEmail, IsNumber, IsString } from 'class-validator';
+import { IsOptional, IsString, Length } from 'class-validator';
 
-export class CreateUserDto { //local로 회원가입?
-  @IsEmail()
-  readonly email: string;
+export class CreateUserDto {
+  @IsString()
+  register_code: string;
 
   @IsString()
-  readonly username: string;
+  @Length(3, 50)
+  username: string;
 
-  //   @IsHash()
+  @IsString()
+  @IsOptional()
+  bio?: string;
 }

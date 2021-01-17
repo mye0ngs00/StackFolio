@@ -6,8 +6,10 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
 import { IsString, IsUUID } from 'class-validator';
+import { nanoid } from 'nanoid';
 
 @Entity()
 export class Verification {
@@ -30,7 +32,14 @@ export class Verification {
 
   /** Relations */
 
-  @OneToOne((type) => User, { onDelete: 'CASCADE' })
+  @OneToOne((type) => User, { onDelete: 'CASCADE', eager: true })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
+
+  /** Listeners */
+
+  @BeforeInsert()
+  generateVerificationCode() {
+    this.code = this.user.email + '-' + nanoid(10);
+  }
 }
