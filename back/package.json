@@ -90,7 +90,8 @@
   },
   "prettier": {
     "singleQuote": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "tabWidth": 2
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
