@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { GoogleStrategy } from './passport/google.strategy';
-import { LocalStrategy } from './passport/local.strategy';
 import { JwtStrategy } from './passport/jwt.strategy';
 import { UsersModule } from 'src/users/users.module';
 import { PassportModule } from '@nestjs/passport';
@@ -32,7 +31,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, GoogleStrategy, LocalStrategy, JwtStrategy],
+  providers: [AuthService, GoogleStrategy, JwtStrategy],
   controllers: [AuthController],
   exports: [AuthService],
 })
