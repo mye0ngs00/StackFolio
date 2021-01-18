@@ -38,7 +38,7 @@ export class UsersService {
         const user = await this.userRepository.findOne({email: updateUser.email},{relations:["profile"]});
         user.profile.username = updateUser.username;
         await this.userRepository.save(user);
-        await this.userProfileRepository.save(user.profile);
+        // await this.userProfileRepository.save(user.profile);
         // user, userprofile entity 1:1관계를 두 파일데 다 명시 해놓음
         // userrepository랑 userprofilerepository를 둘다 저장을 해줘야 하나?
 

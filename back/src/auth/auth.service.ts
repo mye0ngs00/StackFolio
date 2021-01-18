@@ -17,7 +17,7 @@ export class AuthService {
         private readonly userProfileRepository: UserProfileRepository
         ){}
 
-        async validateUser(username: string, email: string): Promise<any> {
+        async validateUser(email: string): Promise<any> {
             // console.log(email, pass);
             const user = await this.userService.findOne(email);
             // local 로그인할 때 password를 사용한다면 여기다 bcyrpt 사용
@@ -46,6 +46,8 @@ export class AuthService {
     }
 // velog처럼 이메일 로그인 시 > 이메일 발송 > 이메일 내 링크 클릭 > velog로 리디렉션 후 토큰발급
     login(user: any) { 
+    // console.log(user);
+
         const payload = {
             username: user.username,
             sub: user.userId,

@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Header, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { from } from 'rxjs';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
+import {Response} from "express";
 
 @Controller('auth')
 export class AuthController {
@@ -23,13 +25,21 @@ export class AuthController {
     @Get('profile')
     getProfile(@Req() req) {
         return req.user;
+        // Bearer Toekn에 삽입?
     }
     
+    // @Header("access_token", "")
     @UseGuards(AuthGuard("local"))
     @Post("local")
-    async login(@Req() req) {
-        return this.authService.login(req.user);
+    async login(@Req() req, @Res({passthrough: true}) res: Response) {
+        const user = this.authService.login(req.user)
+        res.setHeader("access_token",user.access_token);
+        // console.log(res);
+        // req.headers["test"] = user.access_token;
+        return user;
     }
+
+
     @Get('google')
     @UseGuards(AuthGuard('google'))
     async googleAuth(@Req() req) {}
