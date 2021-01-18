@@ -13,7 +13,6 @@ import { AuthService } from './auth.service';
 import { SendMailDto } from './dto/send-mail.dto';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
-import { LocalAuthGuard } from './guards/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -34,12 +33,6 @@ export class AuthController {
   @Get('profile')
   getProfile(@Req() req) {
     return req.user;
-  }
-
-  @UseGuards(LocalAuthGuard)
-  @Post('local')
-  async login(@Req() req) {
-    return this.authService.login(req.user);
   }
 
   @Get('google')

@@ -8,6 +8,8 @@ const validationSchema = Joi.object({
 
   PORT: Joi.string().required(),
 
+  JWT_KEY: Joi.string().required(),
+
   PASSPORT_GOOGLE_CLIENT_ID: Joi.string().required(),
   PASSPORT_GOOGLE_CLIENT_SECRET: Joi.string().required(),
   PASSPORT_GOOGLE_CALLBACK_URL: Joi.string().required(),
@@ -19,6 +21,7 @@ const allowedHosts = ['http://localhost:3000'];
 const configuration = () => ({
   port: process.env.PORT,
   ['allowed-hosts']: allowedHosts,
+  ['jwt-key']: process.env.JWT_KEY,
   passport: {
     google: {
       ['client-id']: process.env.PASSPORT_GOOGLE_CLIENT_ID,

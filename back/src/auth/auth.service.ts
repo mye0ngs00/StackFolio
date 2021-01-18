@@ -1,4 +1,10 @@
-import { BadRequestException, Injectable, Req, Res } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from 'src/users/repository/user.repository';
@@ -9,6 +15,7 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
   constructor(
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
@@ -59,6 +66,7 @@ export class AuthService {
 
   async socialLogin(@Req() req, @Res() res) {
     const { provider, social_id, email } = req.user;
+    this.logger.verbose(`New social login [${email}]`);
     const user = await this.userRepository.findOne({ email });
 
     if (!user) {
@@ -79,6 +87,11 @@ export class AuthService {
 
   // 그냥 이메일로 로그인 시
   async sendRegisterMail(email: string) {
+    const user = await this.userRepository.findOne({ email });
+    if (user) {
+      // email을 보내고 return;
+    }
+
     const register = await this.registerRepository.createRegister({ email });
 
     // register.code + register.email
