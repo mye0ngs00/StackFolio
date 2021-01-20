@@ -1,0 +1,13 @@
+CREATE USER dohan WITH ENCRYPTED PASSWORD 'passwd';
+
+CREATE DATABASE velog
+    OWNER dohan
+    TEMPLATE template0
+    ENCODING 'UTF8'
+    LC_COLLATE 'C'
+    LC_CTYPE 'C'
+    CONNECTION LIMIT 500;
+
+\c velog
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

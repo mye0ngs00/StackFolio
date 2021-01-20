@@ -27,7 +27,8 @@ services:
     environment:
       - POSTGRES_PASSWORD=passwd
     volumes:
-      - ./db-data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/1-init.sql
+      # - ./db/schema.sql:/docker-entrypoint-initdb.d/2-schema.sql
     healthcheck:
       test: pg_isready -h 127.0.0.1
