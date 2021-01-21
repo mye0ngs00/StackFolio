@@ -5,66 +5,33 @@ import {
   Req,
   Res,
 } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from 'src/users/repository/user.repository';
-import { UserProfileRepository } from 'src/users/repository/user-profile.repository';
 import { RegisterRepository } from './repository/register.repository';
 import { VerificationRepository } from './repository/verification.repository';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { AccessTokenDto } from './dto/acess-token.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
   constructor(
-    private readonly userService: UsersService,
     private readonly jwtService: JwtService,
     private readonly registerRepository: RegisterRepository,
     private readonly verificationRepository: VerificationRepository,
     private readonly userRepository: UserRepository,
   ) {}
 
-  async validateUser(username: string, email: string): Promise<any> {
-    // console.log(email, pass);
-    const user = await this.userService.findOne(email);
-    // local 로그인할 때 password를 사용한다면 여기다 bcyrpt 사용
-    if (user && user.email) {
-      //여기다가 JWT 생성?
-      const { ...result } = user;
-      return result;
-    }
-    return null;
-  }
+  async register(data: CreateUserDto): Promise<AccessTokenDto> {
+    const newUser = await this.userRepository.createUser(data);
 
-  async register(data: CreateUserDto) {
-    const newUser = await this.userRepository.createNewUser(data);
-
-    // 사용자가 가입했으면 register를 위해 만든 record 삭제
-    await this.registerRepository.delete({
-      code: data.register_code,
-      email: data.email,
-    });
-
-    // 최초 가입시 토큰만 발행해줘도 될 것 같은데 (내 프로필 들어갈 때 토큰을 가지고 request를 날릴 것이므로)
-    // velog도 보면 첫 페이지에 필요한 데이터를 local storage에 담긴 하는데 우리는 어떻게 할까요?
     return {
-      access_token: this.jwtService.sign({ userId: newUser.id }),
+      accessToken: this.jwtService.sign({ userId: newUser.id }),
     };
   }
 
-  // velog처럼 이메일 로그인 시 > 이메일 발송 > 이메일 내 링크 클릭 > velog로 리디렉션 후 토큰발급
-  login(user: any) {
-    const payload = {
-      username: user.username,
-      sub: user.userId,
-    };
-    return {
-      user,
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
-  async socialLogin(@Req() req, @Res() res) {
+  async socialLogin(@Req() req, @Res() res): Promise<AccessTokenDto> {
     const { provider, social_id, email } = req.user;
     this.logger.verbose(`New social login [${email}]`);
     const user = await this.userRepository.findOne({ email });
@@ -80,22 +47,30 @@ export class AuthService {
       return res.redirect(encodeURI(redirectUrl));
     }
 
+    /** @todo 여기서 redirect랑 return 중 어떻게? */
+    // res.append(
+    //   'Authorization',
+    //   `Bearer ${this.jwtService.sign({ userId: user.id })}`,
+    // );
+    // res.redirect(client);
+
     return {
-      access_token: this.jwtService.sign({ userId: user.id }),
+      accessToken: this.jwtService.sign({ userId: user.id }),
     };
   }
 
-  // 그냥 이메일로 로그인 시
+  // For users who create with there personal mail
   async sendRegisterMail(email: string) {
     const user = await this.userRepository.findOne({ email });
     if (user) {
-      // email을 보내고 return;
+      // Send login mail instead of a register mail
+      return;
     }
 
     const register = await this.registerRepository.createRegister({ email });
 
-    // register.code + register.email
-    /** @todo Send mail with a register link [http://<client>/register?code={code}&email={email}] */
+    // const link = http://:client/register?code={register.code}&email={register.email}
+    /** @todo Send mail with a register link */
   }
 
   async sendLoginMail(email: string) {
@@ -107,17 +82,17 @@ export class AuthService {
     const verification = this.verificationRepository.create({ user });
     await this.verificationRepository.save(verification);
 
-    // verification.code
-    /** @todo Send mail with a login link [http://<client>/verify?code={code}] */
+    // const link = http://:client/verify?code={verification.code}
+    /** @todo Send mail with a login link */
   }
 
-  async loginWithCode(code: string) {
+  async loginWithCode(code: string): Promise<LoginDto> {
     const userProfile = await this.verificationRepository.verifyCodeAndGetUserProfile(
       code,
     );
     return {
       profile: userProfile,
-      access_token: this.jwtService.sign({ userId: userProfile.user_id }),
+      accessToken: this.jwtService.sign({ userId: userProfile.user_id }),
     };
   }
 }
