@@ -6,7 +6,9 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { setSwagger } from './set-swagger';
 
+const isDev = process.env.NODE_ENV === 'development';
 const isProd = process.env.NODE_ENV === 'production';
 
 async function bootstrap() {
@@ -39,6 +41,10 @@ async function bootstrap() {
     // Starts listening for shutdown hooks
     // https://docs.nestjs.com/fundamentals/lifecycle-events#application-shutdown
     app.enableShutdownHooks();
+  }
+
+  if (isDev) {
+    setSwagger(app);
   }
 
   await app.listen(port);

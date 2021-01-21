@@ -21,7 +21,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       RegisterRepository,
       VerificationRepository,
     ]),
-    UsersModule,
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
