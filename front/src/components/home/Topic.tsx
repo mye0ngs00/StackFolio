@@ -29,7 +29,6 @@ const TopicWrapper = styled.div`
         margin-bottom: -20px;
     }
     gap: 30px;
-    margin-top: 30px;
 `;
 
 interface TopicProps{

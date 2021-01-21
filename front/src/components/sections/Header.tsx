@@ -9,12 +9,15 @@ import styled from "styled-components";
 
 const Head = styled.header`
     height: 55px;
-    display: flex;
-    align-items: center;
     padding: 5px 20px 5px 20px;
     color: ${({theme}) => theme.default.text};
-    font-weight: 900;
-    font-size: 40px;
+    
+    display: grid;
+    grid-template-columns : 150px calc(100% - 370px) 180px;
+`
+const Buttons = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 25%);
 `
 
 const Header = () => {
@@ -22,12 +25,16 @@ const Header = () => {
     const history = useHistory();
     return (
         <Head>
-            <Box rowSpace={10}>
-                <TextButton bold onClick={()=>history.push('/')} >
-                    Clone Velog Header
-                </TextButton>
+            <TextButton bold fontSize={40} onClick={()=>history.push('/')}> Logo </TextButton>
+            <Box>
                 <Switch size="md" checked={theme==='light'} onChange={()=>toggleTheme('')} />
             </Box>
+            <Buttons>
+                <TextButton onClick={()=>history.push('/search')}>검색</TextButton>
+                <TextButton>글쓰기</TextButton>
+                <TextButton>알림</TextButton>
+                <TextButton>프로필</TextButton>
+            </Buttons>
         </Head>
     )
 }
