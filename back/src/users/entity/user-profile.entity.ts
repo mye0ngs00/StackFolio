@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   Column,
@@ -17,12 +18,18 @@ import {
   IsUUID,
 } from 'class-validator';
 
-export interface SocialLinks {
+export class SocialLinks {
+  @ApiProperty({ required: false })
   email?: string;
+  @ApiProperty({ required: false })
   github?: string;
+  @ApiProperty({ required: false })
   linkedIn?: string;
+  @ApiProperty({ required: false })
   twitter?: string;
+  @ApiProperty({ required: false })
   facebook?: string;
+  @ApiProperty({ required: false })
   homepage?: string;
 }
 
@@ -31,6 +38,7 @@ export interface SocialLinks {
 export class UserProfile {
   /** Columns */
 
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
@@ -42,26 +50,31 @@ export class UserProfile {
   @UpdateDateColumn()
   readonly updated_at: Date;
 
+  @ApiProperty()
   @Column({ length: 255 })
   @IsString()
   @Length(3, 50)
   username: string;
 
+  @ApiProperty({ required: false })
   @Column({ length: 255, nullable: true })
   @IsString()
   @IsOptional()
   bio?: string;
 
+  @ApiProperty({ required: false })
   @Column('text', { nullable: true })
   @IsString()
   @IsOptional()
   about?: string;
 
+  @ApiProperty({ required: false })
   @Column({ length: 255, nullable: true })
   @IsString()
   @IsOptional()
   avatar?: string;
 
+  @ApiProperty({ required: false })
   @Column({ type: 'jsonb', default: {} })
   @IsObject()
   @IsOptional()
