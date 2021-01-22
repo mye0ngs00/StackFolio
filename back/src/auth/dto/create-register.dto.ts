@@ -3,7 +3,7 @@ import { IsEmail, IsOptional, IsEnum, IsString } from 'class-validator';
 import { Provider } from 'src/users/entity/user.entity';
 
 export class CreateRegisterDto {
-  @ApiProperty()
+  @ApiProperty({ enum: Provider })
   @IsEnum(Provider)
   @IsOptional()
   provider?: Provider;
