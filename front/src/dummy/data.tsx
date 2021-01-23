@@ -1,3 +1,5 @@
+import image from 'dummy/example.png'
+
 export default {
     author: 'Admin',
     title: "블로깅 웹페이지 만들기 프로젝트",
@@ -8,7 +10,7 @@ export default {
     in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui 
     officia deserunt mollit anim id est laborum.`,
-    timestamp:new Date(),
+    cover: image,
     likes:12,
     comments: 5,
     avatar: null

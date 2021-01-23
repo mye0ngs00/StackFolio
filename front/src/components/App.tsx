@@ -3,10 +3,12 @@ import { DefaultTheme, ThemeProvider } from 'styled-components';
 import GlobalStyle from 'styles/global-style';
 import {themes}from 'styles/theme';
 import Routes from 'components/Routes';
+import { useRecoilValue } from 'recoil';
+import { themeState } from 'atoms/theme';
 
 function App() {
-  const theme:DefaultTheme = themes.light;
-  // const theme:DefaultTheme = themes.dark;
+  const themeType = useRecoilValue(themeState);
+  const theme:DefaultTheme = themeType==='light' ? themes.light : themes.dark;
   return (
     <>
       <GlobalStyle theme={theme}/>
