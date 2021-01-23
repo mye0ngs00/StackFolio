@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Colorset } from "styles/styled";
 
 interface ButtonProps extends ComponentPropsWithRef<"button"> {
+    fontSize?: number
     fullWidth?: boolean
     color?: "primary" | "secondary" | "default"
     bold?: boolean
@@ -18,6 +19,7 @@ export const Button = styled.button<ButtonProps>`
     margin: 0.5rem 1rem;
     width: ${({fullWidth}) => fullWidth ? "100%" : '10rem'};
     font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
+    font-size: ${({fontSize}) => fontSize+'px' || '1rem'};
 
     // 수정 필요!
     ${ ({color, theme})=> {
@@ -33,10 +35,14 @@ export const Button = styled.button<ButtonProps>`
     }}
 `
 export const TextButton = styled.a<ButtonProps>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.5rem 0;
     background: ${({theme}) => theme.mainBackground};
     text-align: center;
     font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
+    font-size: ${({fontSize}) => fontSize+'px' || '1rem'};
 
     // 수정 필요!
     ${ ({color, theme})=> {

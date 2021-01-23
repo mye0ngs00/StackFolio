@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TagList = () => {
+const Tags = () => {
     return (
         <>
         Tags List
@@ -8,4 +8,4 @@ const TagList = () => {
     )
 }
 
-export default TagList;
+export default Tags;

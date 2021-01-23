@@ -8,12 +8,12 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SearchWrapper = styled.div`
-    margin: 50px 0;
+    margin: 20px 0 40px 0;
     width: min(920px, 100%);
     padding: 0;
     display: grid;
     grid-template-rows: auto 24px;
-    gap: 20px;
+    gap: 5px;
 `
 
 interface SearchFieldProps{initialValue?:string}
@@ -28,8 +28,8 @@ const SearchField = ({initialValue}:SearchFieldProps) => {
                     <TextField 
                         placeholder="검색어를 입력해주세요..."
                         fullWidth
-                        height={60}
-                        style={{ fontSize: 28 }}
+                        height={50}
+                        style={{ fontSize: 24 }}
                         value={searchValue}
                         onChange={({target:{value}}) => setSearchValue(value)}
                         onKeyPress={onSearched}
@@ -57,6 +57,8 @@ const Tags = () => {
                 <Tag name="python"/>
                 <Tag name="javascript"/>
                 <Tag name="react"/>
+                <Tag name="c++"/>
+                <Tag name="database"/>
             </Box>
             <TextButton bold onClick={()=>history.push('/tags')}> 
                 태그 더보기 

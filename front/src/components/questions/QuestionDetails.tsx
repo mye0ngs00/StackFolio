@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuestionsDetail = ({match}:any) => {
+const QuestionDetails = ({match}:any) => {
     const {params:{id}} = match;
     return (
         <>
@@ -9,4 +9,4 @@ const QuestionsDetail = ({match}:any) => {
     )
 }
 
-export default QuestionsDetail;
+export default QuestionDetails;

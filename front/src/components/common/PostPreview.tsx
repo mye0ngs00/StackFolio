@@ -47,13 +47,7 @@ const Avatar = styled.img`
 `
 const ProfilePreview = styled.div`
     display: grid;
-    grid-template-areas:
-        "a name"
-        "a intro";
     grid-template-columns: 50px auto;
-    & > *:first-child{grid-area: a}
-    & > *:nth-child(2){grid-area: name}
-    & > *:nth-child(3){grid-area: intro}
 `
 
 const PostPreview = (props:PostData) => {
@@ -71,7 +65,6 @@ const PostPreview = (props:PostData) => {
                 <ProfilePreview>
                     <Avatar />
                     <Text bold left>{author}</Text>
-                    <Text left>Hello!</Text>
                 </ProfilePreview>
                 <Box transparent right>
                     <AiOutlineLike size={20}/> &nbsp;
