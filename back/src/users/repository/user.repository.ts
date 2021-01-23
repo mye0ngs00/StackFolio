@@ -45,13 +45,17 @@ export class UserRepository extends Repository<User> {
 
       await queryRunner.manager.save(newUser);
       await queryRunner.manager.remove(register);
+      await queryRunner.commitTransaction();
 
       return newUser;
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       if (err.code === '23505') {
         throw new ConflictException('Username conflict');
       }
       throw err;
+    } finally {
+      await queryRunner.release();
     }
   }
 }
