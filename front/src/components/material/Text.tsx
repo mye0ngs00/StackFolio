@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Box, BoxProps } from './Box';
 
-interface TextProps extends BoxProps{
+export interface TextProps extends BoxProps{
     bold?: boolean
     color?: string
     fontSize?: number

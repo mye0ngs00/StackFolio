@@ -74,7 +74,7 @@ export class User {
   is_verified: boolean;
 
   /** Relations */
-
+//   @Is
   @ManyToMany((type) => User, (user) => user.following)
   @JoinTable({
     name: 'follower',

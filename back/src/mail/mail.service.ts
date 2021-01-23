@@ -1,26 +1,26 @@
 import { MailerService } from '@nestjs-modules/mailer';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class MailService {
+    private readonly logger = new Logger(MailService.name);
   constructor(private readonly mailerService: MailerService) {}
 
-  public sendingMail(): void {
+  public sendingMail(email: string, redirectUrl: string): void {
     this.mailerService
       .sendMail({
-        to: 'ehgks0083@gmail.com',
+        to: email,
         from: 'ehgks00832@gmail.com',
-        subject: 'Testing NestJS MailerModule',
-        text: 'Welcome Mailer !',
-        html: `<div>
-            <a href="localhost:3000">링크</a>
-            </div>`, //링크가 안가지네
+        subject: 'Velog 회원가입 링크입니다',
+        html: `<h1>h1 테스트</h1>
+        <a href=${redirectUrl}>${redirectUrl}</a>`
       })
       .then((s) => {
-        console.log(s);
+        // this.logger.verbose(`email 발송 성공 [${email}]`);
+        // console.log("이메일 발송 성공",s);
       })
       .catch((e) => {
-        console.log(e);
+        // console.log("이메일 발송 에러",e);
       });
   }
 }

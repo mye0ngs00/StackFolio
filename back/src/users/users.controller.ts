@@ -29,8 +29,9 @@ export class UsersController {
 
   @Get('send-mail')
   sendMail(): any {
+      /**  @todo 나중에 삭제할 것 / 이메일 발송 테스트 중  **/
     try {
-      this.mailService.sendingMail();
+      this.mailService.sendingMail("ehgks0083@gmail.com", "https://naver.com");
       return { message: '성공' };
     } catch (err) {
       return { message: '에러', err };

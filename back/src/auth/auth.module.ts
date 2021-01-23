@@ -12,6 +12,7 @@ import { UserProfileRepository } from 'src/users/repository/user-profile.reposit
 import { RegisterRepository } from './repository/register.repository';
 import { VerificationRepository } from './repository/verification.repository';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MailService } from 'src/mail/mail.service';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       RegisterRepository,
       VerificationRepository,
     ]),
+    MailService,
     PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -30,7 +32,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
     }),
   ],
-  providers: [AuthService, GoogleStrategy, JwtStrategy],
+  providers: [AuthService, GoogleStrategy, JwtStrategy, MailService],
   controllers: [AuthController],
   exports: [AuthService],
 })
