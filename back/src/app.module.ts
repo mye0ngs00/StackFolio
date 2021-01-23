@@ -9,6 +9,7 @@ import { typeOrmConfig } from './config/type-orm.config';
 import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config/configuration';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { config } from './config/configuration';
     CommentsModule,
     LikesModule,
     MailModule,
+    TagsModule,
   ],
   controllers: [],
   providers: [],

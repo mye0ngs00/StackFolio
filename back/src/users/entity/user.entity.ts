@@ -20,8 +20,8 @@ import {
 } from 'class-validator';
 
 import { Post } from '../../posts/entity/post.entity';
-import { Comment } from 'src/comments/entity/comment.entity';
 import { UserProfile } from './user-profile.entity';
+import { PostComment } from 'src/posts/entity/post-comment.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -86,10 +86,18 @@ export class User {
   @ManyToMany((type) => User, (user) => user.followers)
   following: User[];
 
+  @ManyToMany((type) => Post)
+  @JoinTable({
+    name: 'favorite',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
+  })
+  favorites: Post[];
+
   @OneToMany((type) => Post, (post) => post.author)
   posts: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany((type) => PostComment, (comment) => comment.user)
   comments: Comment[];
 
   @OneToOne((type) => UserProfile, (userProfile) => userProfile.user, {

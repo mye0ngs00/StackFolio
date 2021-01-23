@@ -8,12 +8,15 @@ import {
   ManyToOne,
   OneToOne,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
-import { IsOptional, IsString, IsUUID } from 'class-validator';
+import { IsString, IsUUID } from 'class-validator';
 import { User } from '../../users/entity/user.entity';
 import { PostInformation } from './post-information.entity';
 import { PostMetadata } from './post-metadata.entity';
-import { Comment } from '../../comments/entity/comment.entity';
+import { Tag } from 'src/tags/entity/tag.entity';
+import { PostComment } from './post-comment.entity';
 
 @Entity()
 export class Post {
@@ -74,6 +77,17 @@ export class Post {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   author: User;
 
-  @OneToMany((type) => Comment, (comment) => comment.post)
+  @OneToMany((type) => PostComment, (comment) => comment.post)
   comments: Comment[];
+
+  @ManyToMany((type) => Tag)
+  @JoinTable({
+    name: 'post_tag',
+    joinColumn: { name: 'post_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'tag_id', referencedColumnName: 'id' },
+  })
+  tags: Tag[];
+
+  @ManyToMany((type) => User, (user) => user.favorites)
+  users: User[];
 }
