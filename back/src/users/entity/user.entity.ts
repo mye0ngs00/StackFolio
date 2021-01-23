@@ -108,8 +108,10 @@ export class User {
   @OneToMany((type) => PostComment, (comment) => comment.user)
   comments: Comment[];
 
+  @ApiProperty()
   @OneToOne((type) => UserProfile, (userProfile) => userProfile.user, {
     cascade: true,
+    eager: true,
   })
   profile: UserProfile;
 }
