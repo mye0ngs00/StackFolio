@@ -4,22 +4,21 @@ import { IsEmail, IsOptional, IsString, Length } from 'class-validator';
 export class CreateUserDto {
   @ApiProperty({
     description: 'The register code sent from server to verify a user',
+    example: '213AfsadfRRE',
   })
   @IsString()
   register_code: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'john@do.com' })
   @IsEmail()
   email: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'gopher' })
   @IsString()
   @Length(3, 50)
   username: string;
 
-  @ApiProperty({
-    required: false,
-  })
+  @ApiProperty({ required: false, example: "Hi I'm a student" })
   @IsString()
   @IsOptional()
   bio?: string;

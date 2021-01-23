@@ -6,8 +6,9 @@ import { User } from '../users/entity/user.entity';
 import { UserProfile } from '../users/entity/user-profile.entity';
 import { PostMetadata } from '../posts/entity/post-metadata.entity';
 import { PostInformation } from '../posts/entity/post-information.entity';
-import { Like } from '../likes/entity/like.entity';
-import { Comment } from '../comments/entity/comment.entity';
+import { PostLike } from 'src/posts/entity/post-like.entity';
+import { Tag } from 'src/tags/entity/tag.entity';
+import { PostComment } from 'src/posts/entity/post-comment.entity';
 
 const inContainer = Boolean(process.env.IN_CONTAINER);
 const isDev = process.env.NODE_ENV === 'development';
@@ -20,8 +21,9 @@ const entities = [
   Post,
   PostMetadata,
   PostInformation,
-  Comment,
-  Like,
+  PostLike,
+  PostComment,
+  Tag,
 ];
 
 /**

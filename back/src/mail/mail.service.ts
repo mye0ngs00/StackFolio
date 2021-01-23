@@ -3,7 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class MailService {
-    private readonly logger = new Logger(MailService.name);
+  private readonly logger = new Logger(MailService.name);
   constructor(private readonly mailerService: MailerService) {}
 
   public sendingMail(email: string, redirectUrl: string): void {
@@ -13,7 +13,7 @@ export class MailService {
         from: 'ehgks00832@gmail.com',
         subject: 'Velog 회원가입 링크입니다',
         html: `<h1>h1 테스트</h1>
-        <a href=${redirectUrl}>${redirectUrl}</a>`
+        <a href=${redirectUrl}>${redirectUrl}</a>`,
       })
       .then((s) => {
         // this.logger.verbose(`email 발송 성공 [${email}]`);
