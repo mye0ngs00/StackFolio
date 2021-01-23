@@ -1,5 +1,3 @@
-import { array } from 'joi';
-import { type } from 'os';
 import { PostInformation } from 'src/posts/entity/post-information.entity';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
