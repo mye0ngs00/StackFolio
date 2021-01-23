@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,27 +14,33 @@ import { IsString, IsOptional } from 'class-validator';
 export class PostInformation {
   /** Columns */
 
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Column('timestamptz')
   @CreateDateColumn()
   readonly created_at: Date;
 
+  @ApiProperty()
   @Column('timestamptz')
   @UpdateDateColumn()
   readonly updated_at: Date;
 
+  @ApiProperty()
   @Column({ length: 255, nullable: true })
   @IsString()
   @IsOptional()
   description?: string;
 
+  @ApiProperty()
   @Column({ length: 255, nullable: true })
   @IsString()
   @IsOptional()
   thumbnail?: string;
 
+  @ApiProperty()
   @Column({ length: 255, nullable: true })
   @IsString()
   @IsOptional()

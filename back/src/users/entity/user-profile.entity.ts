@@ -80,6 +80,7 @@ export class UserProfile {
   @IsOptional()
   social_links?: SocialLinks;
 
+  @ApiProperty({ readOnly: true })
   @Column('uuid')
   @IsUUID('4')
   user_id: string;

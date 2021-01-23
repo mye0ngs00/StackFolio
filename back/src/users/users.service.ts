@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { PostInformation } from 'src/posts/entity/post-information.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
@@ -34,6 +35,33 @@ export class UsersService {
       userProfile,
     );
     return updatedUserProfile;
+  }
+
+  async getFollowers(userId: string): Promise<User[]> {
+    const user = await this.userRepository.findOne(
+      { id: userId },
+      { relations: ['followers'] },
+    );
+    if (!user) {
+      throw new BadRequestException('User does not exist.');
+    }
+    return user.followers;
+  }
+
+  async getFollowing(userId: string): Promise<User[]> {
+    const user = await this.userRepository.findOne(
+      { id: userId },
+      { relations: ['following'] },
+    );
+    if (!user) {
+      throw new BadRequestException('User does not exist.');
+    }
+    return user.following;
+  }
+
+  async getFavorites(userId: string): Promise<PostInformation[]> {
+    const favorites = await this.userRepository.findFavorites(userId);
+    return favorites;
   }
 
   async deleteUser(user: User) {

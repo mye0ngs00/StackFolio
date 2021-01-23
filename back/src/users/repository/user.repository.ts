@@ -1,5 +1,6 @@
 import { BadRequestException, ConflictException } from '@nestjs/common';
 import { Register } from 'src/auth/entity/register.entity';
+import { PostInformation } from 'src/posts/entity/post-information.entity';
 import {
   EntityRepository,
   getConnection,
@@ -60,5 +61,13 @@ export class UserRepository extends Repository<User> {
     } finally {
       await queryRunner.release();
     }
+  }
+
+  /**
+   * @todo Create a query builder to join tables to get the post informations
+   * for all the posts a user marked as favorite.
+   */
+  async findFavorites(userId: string): Promise<PostInformation[]> {
+    return {} as any;
   }
 }
