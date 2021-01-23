@@ -3,48 +3,56 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Patch,
-  Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { MailService } from 'src/mail/mail.service';
-import { UpdateUserDTO } from './dto/update-user.dto';
+import {
+  ApiBadRequestResponse,
+  ApiBearerAuth,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnauthorizedResponse,
+} from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
 import { UsersService } from './users.service';
+import docs from './users.docs';
 
 @ApiTags('Users')
+@ApiBearerAuth()
+@ApiUnauthorizedResponse({ description: 'Invalid or missing token' })
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UsersController {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly mailService: MailService,
-  ) {}
+  constructor(private readonly usersService: UsersService) {}
 
-  @Get()
-  findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  @Get('profile')
+  @ApiOperation(docs.get['profile'].operation)
+  @ApiOkResponse(docs.get['profile'].response[200])
+  @ApiBadRequestResponse(docs.get['profile'].response[400])
+  getUserProfile(@Req() req): Promise<UserProfile> {
+    return this.usersService.getUserProfile(req.user.id);
   }
 
-  @Get('send-mail')
-  sendMail(): any {
-      /**  @todo 나중에 삭제할 것 / 이메일 발송 테스트 중  **/
-    try {
-      this.mailService.sendingMail("ehgks0083@gmail.com", "https://naver.com");
-      return { message: '성공' };
-    } catch (err) {
-      return { message: '에러', err };
-    }
+  @Patch('profile')
+  @ApiOperation(docs.patch['profile'].operation)
+  @ApiOkResponse(docs.patch['profile'].response[200])
+  @ApiBadRequestResponse(docs.patch['profile'].response[400])
+  updateUserProfile(
+    @Req() req,
+    @Body() data: UpdateUserDto,
+  ): Promise<UserProfile> {
+    return this.usersService.updateUserProfile(req.user.id, data);
   }
 
-  @Post('update')
-  updateOne(@Body() updateUser: UpdateUserDTO): Promise<User> {
-    return this.usersService.updateOne(updateUser);
-  }
-
-  @Delete(':id')
-  deleteUser(@Param('id') userId: string) {
-    return this.usersService.deleteUser(userId);
+  @Delete('')
+  @ApiOperation(docs.delete.operation)
+  @ApiOkResponse(docs.delete.response[200])
+  deleteUser(@Req() req): Promise<User> {
+    return this.usersService.deleteUser(req.user);
   }
 }

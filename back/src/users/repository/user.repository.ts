@@ -40,6 +40,9 @@ export class UserRepository extends Repository<User> {
         profile: {
           username,
           bio,
+          social_links: {
+            email,
+          },
         },
       });
 

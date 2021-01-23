@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   Column,
@@ -40,17 +41,21 @@ export enum Provider {
 export class User {
   /** Columns */
 
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Column('timestamptz')
   @CreateDateColumn()
   readonly created_at: Date;
 
+  @ApiProperty()
   @Column('timestamptz')
   @UpdateDateColumn()
   readonly updated_at: Date;
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: Provider,
@@ -60,21 +65,24 @@ export class User {
   @IsOptional()
   provider: Provider;
 
+  @ApiProperty()
   @Column({ length: 255, nullable: true })
   @IsString()
   social_id?: string;
 
+  @ApiProperty()
   @Column({ length: 255 })
   @IsEmail()
   email: string;
 
+  @ApiProperty()
   @Column({ default: false })
   @IsBoolean()
   @IsOptional()
   is_verified: boolean;
 
   /** Relations */
-//   @Is
+
   @ManyToMany((type) => User, (user) => user.following)
   @JoinTable({
     name: 'follower',

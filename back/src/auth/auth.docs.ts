@@ -35,7 +35,7 @@ export default {
     ['send-register-mail']: {
       operation: {
         description:
-          'Sends a **register email** including a link with a register code and the users email as a query `https://:client/register?code={register_code}&email={users_email}`. If the user is already registered, then we will send them a login mail (ref. `/auth/send-login-mail`).',
+          'Sends a **register email** including a link with a register code and the users email as a query `https://:client/register?code={register_code}&email={users_email}`.',
       },
       response: {
         [201]: { description: 'Mail was successfully sent' },
@@ -45,7 +45,7 @@ export default {
     ['send-login-mail']: {
       operation: {
         description:
-          'Sends a **login email** including a link with a verification code as a query `https://:client/login?code={verification_code}`. If the user is not registered, then we will send them a register mail (ref. `/auth/send-register-mail`).',
+          'Sends a **login email** including a link with a verification code as a query `https://:client/login?code={verification_code}`.',
       },
       response: {
         [201]: { description: 'Mail was successfully sent' },
