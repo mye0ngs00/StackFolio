@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/velog-clone/static/js/main.526cd33e.chunk.js",
-    "main.js.map": "/velog-clone/static/js/main.526cd33e.chunk.js.map",
+    "main.js": "/velog-clone/static/js/main.cbfd9e47.chunk.js",
+    "main.js.map": "/velog-clone/static/js/main.cbfd9e47.chunk.js.map",
     "runtime-main.js": "/velog-clone/static/js/runtime-main.2ed6e556.js",
     "runtime-main.js.map": "/velog-clone/static/js/runtime-main.2ed6e556.js.map",
     "static/js/2.81be61a4.chunk.js": "/velog-clone/static/js/2.81be61a4.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.2ed6e556.js",
     "static/js/2.81be61a4.chunk.js",
-    "static/js/main.526cd33e.chunk.js"
+    "static/js/main.cbfd9e47.chunk.js"
   ]
 }
