@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/velog-clone/static/js/main.41f6af84.chunk.js",
-    "main.js.map": "/velog-clone/static/js/main.41f6af84.chunk.js.map",
+    "main.js": "/velog-clone/static/js/main.cbfd9e47.chunk.js",
+    "main.js.map": "/velog-clone/static/js/main.cbfd9e47.chunk.js.map",
     "runtime-main.js": "/velog-clone/static/js/runtime-main.2ed6e556.js",
     "runtime-main.js.map": "/velog-clone/static/js/runtime-main.2ed6e556.js.map",
-    "static/js/2.5428d463.chunk.js": "/velog-clone/static/js/2.5428d463.chunk.js",
-    "static/js/2.5428d463.chunk.js.map": "/velog-clone/static/js/2.5428d463.chunk.js.map",
+    "static/js/2.81be61a4.chunk.js": "/velog-clone/static/js/2.81be61a4.chunk.js",
+    "static/js/2.81be61a4.chunk.js.map": "/velog-clone/static/js/2.81be61a4.chunk.js.map",
     "index.html": "/velog-clone/index.html",
-    "static/js/2.5428d463.chunk.js.LICENSE.txt": "/velog-clone/static/js/2.5428d463.chunk.js.LICENSE.txt"
+    "static/js/2.81be61a4.chunk.js.LICENSE.txt": "/velog-clone/static/js/2.81be61a4.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.2ed6e556.js",
-    "static/js/2.5428d463.chunk.js",
-    "static/js/main.41f6af84.chunk.js"
+    "static/js/2.81be61a4.chunk.js",
+    "static/js/main.cbfd9e47.chunk.js"
   ]
 }
