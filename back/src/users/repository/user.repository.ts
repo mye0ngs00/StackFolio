@@ -1,5 +1,6 @@
 import { BadRequestException, ConflictException } from '@nestjs/common';
 import { Register } from 'src/auth/entity/register.entity';
+import { PostInformation } from 'src/posts/entity/post-information.entity';
 import {
   EntityRepository,
   getConnection,
@@ -40,18 +41,33 @@ export class UserRepository extends Repository<User> {
         profile: {
           username,
           bio,
+          social_links: {
+            email,
+          },
         },
       });
 
       await queryRunner.manager.save(newUser);
       await queryRunner.manager.remove(register);
+      await queryRunner.commitTransaction();
 
       return newUser;
     } catch (err) {
+      await queryRunner.rollbackTransaction();
       if (err.code === '23505') {
         throw new ConflictException('Username conflict');
       }
       throw err;
+    } finally {
+      await queryRunner.release();
     }
+  }
+
+  /**
+   * @todo Create a query builder to join tables to get the post informations
+   * for all the posts a user marked as favorite.
+   */
+  async findFavorites(userId: string): Promise<PostInformation[]> {
+    return {} as any;
   }
 }

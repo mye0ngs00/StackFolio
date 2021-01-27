@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   Column,
@@ -20,8 +21,8 @@ import {
 } from 'class-validator';
 
 import { Post } from '../../posts/entity/post.entity';
-import { Comment } from 'src/comments/entity/comment.entity';
 import { UserProfile } from './user-profile.entity';
+import { PostComment } from 'src/posts/entity/post-comment.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -40,17 +41,21 @@ export enum Provider {
 export class User {
   /** Columns */
 
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 
+  @ApiProperty()
   @Column('timestamptz')
   @CreateDateColumn()
   readonly created_at: Date;
 
+  @ApiProperty()
   @Column('timestamptz')
   @UpdateDateColumn()
   readonly updated_at: Date;
 
+  @ApiProperty()
   @Column({
     type: 'enum',
     enum: Provider,
@@ -60,14 +65,17 @@ export class User {
   @IsOptional()
   provider: Provider;
 
+  @ApiProperty()
   @Column({ length: 255, nullable: true })
   @IsString()
   social_id?: string;
 
+  @ApiProperty()
   @Column({ length: 255 })
   @IsEmail()
   email: string;
 
+  @ApiProperty()
   @Column({ default: false })
   @IsBoolean()
   @IsOptional()
@@ -86,14 +94,24 @@ export class User {
   @ManyToMany((type) => User, (user) => user.followers)
   following: User[];
 
+  @ManyToMany((type) => Post)
+  @JoinTable({
+    name: 'favorite',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
+  })
+  favorites: Post[];
+
   @OneToMany((type) => Post, (post) => post.author)
   posts: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany((type) => PostComment, (comment) => comment.user)
   comments: Comment[];
 
+  @ApiProperty()
   @OneToOne((type) => UserProfile, (userProfile) => userProfile.user, {
     cascade: true,
+    eager: true,
   })
   profile: UserProfile;
 }

@@ -1,20 +1,11 @@
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { MailService } from './mail.service';
+import {mailConfig} from "../config/configuration"
 
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: {
-        host: 'smtp.gmail.com',
-        port: 587,
-        secure: false,
-        auth: {
-          user: process.env.G_MAIL_ID,
-          pass: process.env.G_MAIL_PASS,
-        },
-      },
-    }),
+    MailerModule.forRoot(mailConfig),
   ],
   providers: [MailService],
   exports: [MailService],

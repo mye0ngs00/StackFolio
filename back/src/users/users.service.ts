@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDTO } from './dto/update-user.dto';
+import { PostInformation } from 'src/posts/entity/post-information.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
 import { UserProfileRepository } from './repository/user-profile.repository';
@@ -15,39 +15,57 @@ export class UsersService {
     private readonly userProfileRepository: UserProfileRepository,
   ) {}
 
-  async createUser(data: CreateUserDto) {
-    return this.userRepository.createUser(data);
+  async getUserProfile(userId: string): Promise<UserProfile> {
+    const userProfile = await this.userProfileRepository.findOne({
+      user_id: userId,
+    });
+    return userProfile;
   }
 
-  async findAll(): Promise<User[]> {
-    return await this.userRepository.find({ relations: ['profile'] });
-  }
-
-  async findOne(email: string): Promise<User | undefined> {
-    try {
-      //   console.log('userService : ', email);
-      //   console.log('userService : ', email['username']);
-      const user = await this.userRepository.findOne({ email });
-
-      return user;
-    } catch (e) {
-      return e;
-    }
-  }
-
-  async updateOne(updateUser: UpdateUserDTO): Promise<User> {
-    const user = await this.userRepository.findOne(
-      { email: updateUser.email },
-      { relations: ['profile'] },
+  async updateUserProfile(
+    userId: string,
+    data: UpdateUserDto,
+  ): Promise<UserProfile> {
+    let userProfile = await this.getUserProfile(userId);
+    userProfile = {
+      ...userProfile,
+      ...data,
+    };
+    const updatedUserProfile = await this.userProfileRepository.save(
+      userProfile,
     );
-    user.profile.username = updateUser.username;
-    await this.userRepository.save(user);
-    return user;
+    return updatedUserProfile;
   }
 
-  async deleteUser(userId: string): Promise<User> {
-    const user = await this.userRepository.findOne({ id: userId });
-    await this.userRepository.remove(user);
+  async getFollowers(userId: string): Promise<User[]> {
+    const user = await this.userRepository.findOne(
+      { id: userId },
+      { relations: ['followers'] },
+    );
+    if (!user) {
+      throw new BadRequestException('User does not exist.');
+    }
+    return user.followers;
+  }
+
+  async getFollowing(userId: string): Promise<User[]> {
+    const user = await this.userRepository.findOne(
+      { id: userId },
+      { relations: ['following'] },
+    );
+    if (!user) {
+      throw new BadRequestException('User does not exist.');
+    }
+    return user.following;
+  }
+
+  async getFavorites(userId: string): Promise<PostInformation[]> {
+    const favorites = await this.userRepository.findFavorites(userId);
+    return favorites;
+  }
+
+  async deleteUser(user: User) {
+    await this.userRepository.delete(user.id);
     return user;
   }
 }
