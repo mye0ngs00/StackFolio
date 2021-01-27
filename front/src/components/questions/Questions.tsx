@@ -11,7 +11,7 @@ const QuestionsWrapper = styled.div`
 `
 
 
-const QuestionsList = () => {
+const Questions = () => {
     const [questions, setQuestions] = useState<QuestionData[]>([]);
     useEffect(()=>{
         (async () => {
@@ -32,4 +32,4 @@ const QuestionsList = () => {
     )
 }
 
-export default QuestionsList;
+export default Questions;

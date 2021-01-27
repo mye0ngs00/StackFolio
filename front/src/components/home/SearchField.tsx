@@ -6,6 +6,7 @@ import { TextField } from 'components/material/Textfield';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import media from 'styles/media';
 
 const SearchWrapper = styled.div`
     margin: 20px 0 40px 0;
@@ -14,6 +15,9 @@ const SearchWrapper = styled.div`
     display: grid;
     grid-template-rows: auto 24px;
     gap: 5px;
+    ${media.tablet`
+        display: none;
+    `}
 `
 
 interface SearchFieldProps{initialValue?:string}

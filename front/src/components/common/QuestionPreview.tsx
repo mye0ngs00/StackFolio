@@ -9,7 +9,7 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Tag from './Tag';
-import { Numbers } from 'components/material/Numbers';
+import { Number } from 'components/material/Number';
 
 const Wrapper = styled(Link)`
     display: grid;
@@ -44,7 +44,7 @@ interface CountBoxProps {
 const CountBox = ({Icon, value}:CountBoxProps) => {
     return (
         <Box transparent direction="column">
-            <Numbers fontSize={24} value={value}/>
+            <Number fontSize={24} value={value}/>
             <Icon size={30}/>
         </Box>
     )

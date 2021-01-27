@@ -10,9 +10,16 @@ export interface TextProps extends BoxProps{
 const Text = styled(Box)<TextProps>`
     width: auto;
     padding: 5px;
-    background-color: ${({theme}) => theme.mainBackground};
+    background-color: transparent;
     color: ${({color}) => color || ''};
     font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
     font-size: ${({fontSize}) => fontSize+'px' || '1rem'};
 `
+
+export const Head = (props:any) => <Text fontSize={48} bold left {...props}/>
+export const Title = (props:any) => <Text fontSize={36} bold left {...props}/>
+export const Subtitle = (props:any) => <Text fontSize={24} left {...props}/>
+export const Contents = (props:any) => <Text fontSize={21} left {...props}/>
+export const Infos = (props:any) => <Text fontSize={16} left {...props}/>
+
 export default Text;

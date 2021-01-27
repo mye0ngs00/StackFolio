@@ -1,10 +1,10 @@
 import React from 'react';
 import Text, {TextProps} from "./Text"
 
-export interface NumbersProp extends TextProps {
+export interface NumberProps extends TextProps {
     value: number
 }
-export const Numbers = ({value, ...others}:NumbersProp) => {
+export const Number = ({value, ...others}:NumberProps) => {
     let val = value;
     let unit = '';
     if(value > 1000000000){
