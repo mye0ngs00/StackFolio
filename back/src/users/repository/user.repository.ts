@@ -8,6 +8,7 @@ import {
   Repository,
 } from 'typeorm';
 import { CreateUserDto } from '../dto/create-user.dto';
+import { UserProfile } from '../entity/user-profile.entity';
 import { User } from '../entity/user.entity';
 
 @EntityRepository(User)
@@ -68,6 +69,11 @@ export class UserRepository extends Repository<User> {
    * for all the posts a user marked as favorite.
    */
   async findFavorites(userId: string): Promise<PostInformation[]> {
+    const userProfileRepository = getRepository(UserProfile);
+    const userprofile = await userProfileRepository.findOne({
+      user_id: userId,
+    });
+    const favorites = userprofile.user.favorites;
     return {} as any;
   }
 }

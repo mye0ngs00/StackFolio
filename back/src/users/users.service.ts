@@ -15,9 +15,14 @@ export class UsersService {
     private readonly userProfileRepository: UserProfileRepository,
   ) {}
 
-  async getUserProfile(userId: string): Promise<UserProfile> {
+  async getAllUsers() {
+    const users = await this.userRepository.find();
+    return { users };
+  }
+
+  async getUserProfile(user_id: string): Promise<UserProfile> {
     const userProfile = await this.userProfileRepository.findOne({
-      user_id: userId,
+      user_id,
     });
     return userProfile;
   }

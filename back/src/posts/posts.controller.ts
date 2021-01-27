@@ -29,6 +29,12 @@ export class PostsController {
     return this.postsService.createPost(req.user.id, data);
   }
 
+  @Get('all')
+  @UseGuards(JwtAuthGuard)
+  getPostsAll() {
+    return this.postsService.getPostsAll();
+  }
+
   @Get('')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
@@ -76,7 +82,7 @@ export class PostsController {
   @Delete(':post_id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  deletePost(@Param('post_id') postId: string): Promise<_Post> {
-    return this.postsService.deletePost(postId);
+  deletePost(@Req() req, @Param('post_id') postId: string): Promise<_Post> {
+    return this.postsService.deletePost(req.user.id, postId);
   }
 }
