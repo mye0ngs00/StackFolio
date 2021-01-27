@@ -11,21 +11,23 @@ import TagDetail from './tags/TagDetail';
 import QuestionDetails from './questions/QuestionDetails';
 import Questions from './questions/Questions';
 import SearchHome from './search/SearchHome';
+import Profile from './profile/Profile';
 
 const Wrapper = styled.div`
-    width:min(1470px, 100%);
+    width:min(1470px, calc(100% - 30px));
     padding: 20px 0 40px 0;
 `
 
 const Routes = () => {
     return(
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header />
         <Box transparent>
             <Wrapper>
                 <Switch>
                     <Route path="/playground" exact component={Playground} />
                     <Route path="/" exact component={Home} />
+                    <Route path="/@:id" component={Profile} />
                     <Route exact path="/search" component={SearchHome} />
                     <Route path="/search/:keyword" component={Search} />
                     <Route exact path="/tags" component={Tags} />
