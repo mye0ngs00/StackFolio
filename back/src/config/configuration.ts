@@ -41,16 +41,18 @@ export const config: ConfigModuleOptions = {
 };
 
 export const mailConfig = {
-    transport: {
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      auth: {
-        type: "OAuth2",
-        user: "ehgks00832@gmail.com",
-        clientId: "96418407491-3n7egq25r5fij61kikbod46t26cf0ibt.apps.googleusercontent.com",
-        clientSecret: "9-bi38s6w254T0nfuTwLNt6V",
-        refreshToken: "1//04JzxSuhUqhWpCgYIARAAGAQSNwF-L9IrqGMreGSi7TJ6ZAqR3OuqssONa2oBT4Z3gSY_2RVhIBBcHMsJ_YovuCojB1-aPLZSiXI"
-      },
+  transport: {
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      type: 'OAuth2',
+      user: 'ehgks00832@gmail.com',
+      clientId:
+        '96418407491-3n7egq25r5fij61kikbod46t26cf0ibt.apps.googleusercontent.com',
+      clientSecret: '9-bi38s6w254T0nfuTwLNt6V',
+      refreshToken:
+        '1//04JzxSuhUqhWpCgYIARAAGAQSNwF-L9IrqGMreGSi7TJ6ZAqR3OuqssONa2oBT4Z3gSY_2RVhIBBcHMsJ_YovuCojB1-aPLZSiXI',
     },
-  };
+  },
+};
