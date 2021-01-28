@@ -103,7 +103,8 @@
       ".dto.ts",
       ".guard.ts",
       ".strategy.ts",
-      ".docs.ts"
+      ".docs.ts",
+      "swagger"
     ],
     "testEnvironment": "node"
   },
