@@ -20,7 +20,8 @@ const Wrapper = styled.div`
 
 const Routes = () => {
     return(
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter>
+    {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
         <Header />
         <Box transparent>
             <Wrapper>
