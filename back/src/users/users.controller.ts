@@ -32,6 +32,11 @@ import { PostInformation } from 'src/posts/entity/post-information.entity';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
+  @Get('all')
+  getAllUsers() {
+    return this.usersService.getAllUsers();
+  }
+
   @Get('profile/:user_id')
   @ApiOperation(docs.get['profile/:user_id'].operation)
   @ApiOkResponse(docs.get['profile/:user_id'].response[200])
@@ -78,7 +83,7 @@ export class UsersController {
   @ApiUnauthorizedResponse(docs.unauthorized)
   getFavorites(@Req() req): Promise<PostInformation[]> {
     /** @todo */
-    return {} as any;
+    return this.usersService.getFavorites(req.user.id);
   }
 
   @Post('follow/:user_id')

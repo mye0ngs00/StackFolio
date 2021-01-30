@@ -23,7 +23,7 @@ export class VerificationRepository extends Repository<Verification> {
       return userProfile;
     } catch (err) {
       await queryRunner.rollbackTransaction();
-      throw new BadRequestException();
+      throw new BadRequestException('Invalid verification code');
     } finally {
       await queryRunner.release();
     }

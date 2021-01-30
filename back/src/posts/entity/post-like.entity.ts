@@ -31,11 +31,11 @@ export class PostLike {
   @IsUUID('4')
   user_id: string;
 
-  @Column('uuid')
+  @Column('uuid', { nullable: true })
   @IsUUID('4')
   post_id: string;
 
-  @Column('uuid')
+  @Column('uuid', { nullable: true })
   @IsUUID('4')
   post_comment_id: string;
 }
