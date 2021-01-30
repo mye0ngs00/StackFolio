@@ -2,17 +2,19 @@ import { Box } from 'components/material/Box';
 import Text from 'components/material/Text';
 import React, { useEffect, useRef, useState } from 'react';
 import useDimensions from "react-cool-dimensions";
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface ScoreElement {
     name: string
     score: number
+    color: string
 }
 
 function* mapColorGenerator(){
     let i=0;
     let colors = [
-        '#ffd1d1', '#ffffaa', '#ff3377', '#44aaff', '#6666ff', '#f9ac82', '#596666'
+        '#ffd1d1', '#ffffaa', '#ff3377', '#44aaff', '#6666ff', '#f9ac82', '#59afff', '#d1ffd1'
     ]
     while(true){
         yield colors[i];
@@ -25,13 +27,26 @@ const TreeContainer = styled.div`
     width: 100%;
     height: 100%;
 `
-const DrawTreeMap = ({items, width, height, colorGenerator}:{items:ScoreElement[]; width:number; height:number; colorGenerator():string}) => {
+const TreeLeaf = styled(Text)`
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background: ${props => props.color};
+    transition: box-shadow 0.3s ease-in-out;
+    &:hover {
+        z-index:1;
+        box-shadow: 0 15px 15px rgba(0,0,0,0.3);
+    }
+`
+const DrawTreeMap = ({items, width, height}:{items:ScoreElement[]; width:number; height:number}) => {
+    const history = useHistory();
     if(!items.length) return <></>;
     else if(items.length===1){
         return (
-            <Text bold style={{padding:0, width:"100%", height:"100%", background:colorGenerator()}}>
+            <TreeLeaf bold color={items[0].color} onClick={()=>history.push(`/tags/${items[0].name}`)}>
                 {items[0].name}
-            </Text>
+            </TreeLeaf>
         )
     }
     const sum = items.reduce((acc, item) => acc + item.score, 0);
@@ -43,40 +58,30 @@ const DrawTreeMap = ({items, width, height, colorGenerator}:{items:ScoreElement[
         if(leftSum >= sum/2) break;
     }
     const [left, right] = [items.slice(0,idx+1), items.slice(idx+1, items.length)];
-
     const leftRatio = Math.floor(100*leftSum/sum);
-    let ContainerStyle= width > height ?{
+    const ContainerStyle= width < height ?{
         gridTemplateRows: `${leftRatio}% ${100-leftRatio}%`
     } : {
         gridTemplateColumns: `${leftRatio}% ${100-leftRatio}%`
     }
-    let leftProps={
-        items: left,
+    const leftProps= width<height ? {
         width,
         height: height*leftRatio/100
+    } : {
+        width: width*leftRatio/100,
+        height
     }
-    let rightProps={
-        items: right,
+    const rightProps= width<height ? {
         width,
         height: height*(100-leftRatio)/100
+    } : {
+        width: width*(100-leftRatio)/100,
+        height
     }
-    if(width>height){
-        leftProps={
-            items: left,
-            width: width*leftRatio/100,
-            height
-        }
-        rightProps={
-            items: right,
-            width: width*(100-leftRatio)/100,
-            height
-        }
-    }
-    console.log(width, height);
     return (
         <TreeContainer style={ContainerStyle}>
-            <DrawTreeMap colorGenerator={colorGenerator} {...leftProps} />
-            <DrawTreeMap colorGenerator={colorGenerator} {...rightProps} />
+            <DrawTreeMap items={left} {...leftProps} />
+            <DrawTreeMap items={right} {...rightProps} />
         </TreeContainer>
     )
 }
@@ -92,26 +97,31 @@ const Treemap = () =>{
     const [scores, setScores] = useState({
         javascript: 804,
         python: 490,
-        react: 1305,
+        react: 1905,
+        algorithm: 1000,
         graphQL: 200,
+        css: 690,
         'c++': 180,
         ml: 120
     });
     const [sorted, setSorted] = useState<ScoreElement[]>([]);
+    const generator = mapColorGenerator();
+    const colorGenerator = ():string => generator.next().value || "white";
     useEffect(()=>{
-        const sortedArr = Object.entries(scores).map( ([name, score]) => ({
-            name,
-            score,
-        })).sort((a, b) => b.score - a.score);
+        const sortedArr = Object.entries(scores)
+            .sort((a, b) => b[1] - a[1])
+            .map( ([name, score]) => ({
+                name,
+                score,
+                color: colorGenerator()
+            }));
         setSorted(sortedArr);
     }, [scores])
     
-    const generator = mapColorGenerator();
-    const colorGenerator = ():string => generator.next().value || "white";
     return (
         <Box transparent style={{width:"100%"}} ref={ref as React.RefObject<HTMLDivElement>}>
             <div style={{width:mapSize, height:mapSize}}>
-                <DrawTreeMap items={sorted} width={mapSize} height={mapSize} colorGenerator={colorGenerator}/>
+                <DrawTreeMap items={sorted} width={mapSize} height={mapSize}/>
             </div>
         </Box>
     )
