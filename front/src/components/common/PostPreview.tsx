@@ -7,6 +7,7 @@ import { Box } from 'components/material/Box';
 import { AiOutlineLike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import media from 'styles/media';
+import { useHistory } from 'react-router-dom';
 
 const Wrapper = styled.div`
     display: grid;
@@ -27,7 +28,7 @@ const Wrapper = styled.div`
     & > div:nth-child(7){grid-area:likes;}
     max-width: 100%;
     box-shadow: 2px 2px 10px grey;
-    padding: 10px;
+    padding: 10px 10px 5px 10px;
     ${media.phone`
         grid-template-rows: 200px 40px 60px 16px 55px;
         grid-template-areas: 
@@ -55,16 +56,18 @@ const Image = styled.img`
 const Avatar = styled.img`
     background-color: #ddd;
     border-radius: 50%;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     margin: 2.5px;
 `
 const ProfilePreview = styled.div`
     display: grid;
     grid-template-columns: 50px auto;
+    gap: 10px;
 `
 
 const PostPreview = (props:PostData) => {
+    const history = useHistory();
     const {tags, title, content, thumbnail, timestamp, author, likes, comments} = props;
     return (
         <Wrapper>
@@ -76,7 +79,7 @@ const PostPreview = (props:PostData) => {
             <Text>{content.length > 150 ? content.slice(0,150)+'...' : content}</Text>
             <Text left bold >{timestamp} &nbsp; &nbsp;<BiCommentDetail/> &nbsp; {comments}</Text>
             <ProfilePreview>
-                <Avatar />
+                <Avatar onClick={()=>history.push(`/@${author}`)} />
                 <Text bold left>{author}</Text>
             </ProfilePreview>
             <Box transparent right>
