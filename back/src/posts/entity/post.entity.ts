@@ -17,6 +17,7 @@ import { PostInformation } from './post-information.entity';
 import { PostMetadata } from './post-metadata.entity';
 import { Tag } from 'src/tags/entity/tag.entity';
 import { PostComment } from './post-comment.entity';
+import { Favorite } from 'src/users/entity/user-favorite.entity';
 
 @Entity()
 export class Post {
@@ -88,6 +89,9 @@ export class Post {
   })
   tags: Tag[];
 
-  @ManyToMany((type) => User, (user) => user.favorites)
-  users: User[];
+  //   @ManyToMany((type) => User, (user) => user.favorites)
+  //   users: User[];
+
+  @OneToMany((type) => Favorite, (favorites) => favorites.post)
+  favorites!: Favorite[];
 }

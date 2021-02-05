@@ -4,6 +4,7 @@ import { PostInformation } from 'src/posts/entity/post-information.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserProfile } from './entity/user-profile.entity';
 import { User } from './entity/user.entity';
+import { UserFavoriteRepository } from './repository/user-favorite.repository';
 import { UserProfileRepository } from './repository/user-profile.repository';
 import { UserRepository } from './repository/user.repository';
 
@@ -12,6 +13,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: UserRepository,
+    private readonly userFavoriteRepository: UserFavoriteRepository,
     private readonly userProfileRepository: UserProfileRepository,
   ) {}
 
@@ -64,9 +66,31 @@ export class UsersService {
     return user.following;
   }
 
-  async getFavorites(userId: string): Promise<PostInformation[]> {
-    const favorites = await this.userRepository.findFavorites(userId);
+  async getFavorites(user_id: string) {
+    const favorites = await this.userFavoriteRepository.find({ user_id });
     return favorites;
+  }
+  async addFavorite(user_id: string, post_id: string) {
+    const favorites = await this.userFavoriteRepository.createFavorite(
+      user_id,
+      post_id,
+    );
+
+    return favorites;
+  }
+  async deleteFavorite(user_id: string, favorite_id: string) {
+    try {
+      const favorite = await this.userFavoriteRepository.findOne({
+        id: favorite_id,
+      });
+
+      await this.userFavoriteRepository.remove(favorite);
+
+      return favorite;
+    } catch (error) {
+      console.error(error);
+      throw new BadRequestException();
+    }
   }
 
   async deleteUser(user: User) {

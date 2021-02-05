@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
-import { CommentsModule } from './comments/comments.module';
-import { LikesModule } from './likes/likes.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeOrmConfig } from './config/type-orm.config';
 import { MailModule } from './mail/mail.module';
@@ -18,8 +16,6 @@ import { TagsModule } from './tags/tags.module';
     AuthModule,
     UsersModule,
     PostsModule,
-    CommentsModule,
-    LikesModule,
     MailModule,
     TagsModule,
   ],

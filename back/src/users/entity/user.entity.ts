@@ -23,6 +23,7 @@ import {
 import { Post } from '../../posts/entity/post.entity';
 import { UserProfile } from './user-profile.entity';
 import { PostComment } from 'src/posts/entity/post-comment.entity';
+import { Favorite } from './user-favorite.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -94,13 +95,13 @@ export class User {
   @ManyToMany((type) => User, (user) => user.followers)
   following: User[];
 
-  @ManyToMany((type) => Post)
-  @JoinTable({
-    name: 'favorite',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
-  })
-  favorites: Post[];
+  //   @ManyToMany((type) => Post, { cascade: true })
+  //   @JoinTable({
+  //     name: 'favorite',
+  //     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+  //     inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
+  //   })
+  //   favorites: Post[];
 
   @OneToMany((type) => Post, (post) => post.author)
   posts: Post[];
@@ -114,4 +115,7 @@ export class User {
     eager: true,
   })
   profile: UserProfile;
+
+  @OneToMany((type) => Favorite, (favorites) => favorites.user)
+  favorites!: Favorite[];
 }
