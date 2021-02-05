@@ -26,8 +26,7 @@ export class PostsService {
 
   async getPostsAll() {
     const posts = await this.postRepository.find();
-    // 왜 post 전체 다 안불러질까?
-    // console.log(posts);
+    console.log('post all');
 
     return { posts };
   }

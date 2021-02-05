@@ -29,8 +29,7 @@ export class PostsController {
     return this.postsService.createPost(req.user.id, data);
   }
 
-  @Get('all')
-  @UseGuards(JwtAuthGuard)
+  @Get('')
   getPostsAll() {
     return this.postsService.getPostsAll();
   }

@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 
 const Routes = () => {
     return(
+    // <BrowserRouter>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header />
         <Box transparent>

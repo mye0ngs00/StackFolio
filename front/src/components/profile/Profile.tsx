@@ -1,16 +1,22 @@
 import { Box } from 'components/material/Box';
+import { TextButton } from 'components/material/Button';
 import { Number } from 'components/material/Number';
 import {Title, Subtitle, Contents} from 'components/material/Text';
 import { getUserProfileData, User_Profile } from 'db/User_Profile';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import media from 'styles/media';
+import ProfileIntroduce from './Profile_Introduce';
+import ProfilePosts from './Profile_Posts';
+import ProfileSeries from './Profile_Series';
+import Treemap from './Treemap';
 
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 480px auto;
     ${media.tablet`
         grid-template-columns: 100%;
+        gap: 30px;
     `}
 `
 const HeadWrapper = styled.div`
@@ -33,7 +39,7 @@ const Image = styled.img`
 const NumbersWrapper = styled.div`
     display: grid;
     margin-bottom: 60px;
-    width: max(70%, 360px);
+    width: max(75%, 360px);
     grid-template-columns: repeat(4, 1fr);
 `
 interface CountBoxProps{
@@ -63,6 +69,7 @@ const InfoWrapper = styled.div`
 
 const Profile = ({match}:any) => {
     const {params:{id}} = match;
+    const [tabs, setTabs] = useState(0);
     const [{username, avatar, bio, about}, setUserProfile] = useState<User_Profile>(
     {
         id,
@@ -83,15 +90,18 @@ const Profile = ({match}:any) => {
             is_verified: false
         }
     });
+
     useEffect(()=>{
         (async () => {
             const userProfile = await getUserProfileData(id);
             setUserProfile(userProfile);
         })();
     },[id])
+
     return (
         <Wrapper>
-            <Box direction="column">
+            {/* Profile */}
+            <Box direction="column" justifyContent="flex-start">
                 <HeadWrapper>
                     <Image src={avatar}/>
                     <Title alignItems="flex-end">{username}</Title>
@@ -110,9 +120,21 @@ const Profile = ({match}:any) => {
                     <Subtitle bold>C</Subtitle>
                     <Subtitle bold>D</Subtitle>
                 </Box>
-                <Title style={{height:"300px"}}>
-                    TreeMap
-                </Title>
+                <Treemap/>
+            </Box>
+            <Box transparent direction="column" justifyContent="flex-start" columnSpace={30}>
+                <Box transparent rowSpace={50}>
+                    <TextButton fontSize={24} onClick={()=>setTabs(0)}> 글</TextButton>
+                    <TextButton fontSize={24} onClick={()=>setTabs(1)}> 시리즈 </TextButton>
+                    <TextButton fontSize={24} onClick={()=>setTabs(2)}> 자기소개 </TextButton>
+                </Box>
+                {
+                    tabs === 0 ? 
+                        <ProfilePosts/> 
+                    : tabs === 1 ? 
+                        <ProfileSeries/> 
+                    :   <ProfileIntroduce/>
+                }
             </Box>
         </Wrapper>
     )

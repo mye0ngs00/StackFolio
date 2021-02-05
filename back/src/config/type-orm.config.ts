@@ -9,6 +9,7 @@ import { PostInformation } from '../posts/entity/post-information.entity';
 import { PostLike } from 'src/posts/entity/post-like.entity';
 import { Tag } from 'src/tags/entity/tag.entity';
 import { PostComment } from 'src/posts/entity/post-comment.entity';
+import { Favorite } from 'src/users/entity/user-favorite.entity';
 
 const inContainer = Boolean(process.env.IN_CONTAINER);
 const isDev = process.env.NODE_ENV === 'development';
@@ -18,6 +19,7 @@ const entities = [
   Register,
   User,
   UserProfile,
+  Favorite,
   Post,
   PostMetadata,
   PostInformation,

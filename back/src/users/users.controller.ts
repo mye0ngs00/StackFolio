@@ -28,11 +28,11 @@ import { PostInformation } from 'src/posts/entity/post-information.entity';
 
 @ApiTags('Users')
 @Controller('users')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Get('all')
+  @Get('')
   getAllUsers() {
     return this.usersService.getAllUsers();
   }
@@ -81,9 +81,20 @@ export class UsersController {
   @ApiOperation(docs.get['favorites'].operation)
   @ApiOkResponse(docs.get['favorites'].response[200])
   @ApiUnauthorizedResponse(docs.unauthorized)
-  getFavorites(@Req() req): Promise<PostInformation[]> {
+  getFavorites(@Req() req) {
     /** @todo */
     return this.usersService.getFavorites(req.user.id);
+  }
+
+  @Get('favorite/:post_id')
+  @UseGuards(JwtAuthGuard)
+  addFavorite(@Req() req, @Param('post_id') post_id: string) {
+    return this.usersService.addFavorite(req.user.id, post_id);
+  }
+  @Delete('favorite/:favorite_id')
+  @UseGuards(JwtAuthGuard)
+  deleteFavorite(@Req() req, @Param('favorite_id') favorite_id: string) {
+    return this.usersService.deleteFavorite(req.user.id, favorite_id);
   }
 
   @Post('follow/:user_id')

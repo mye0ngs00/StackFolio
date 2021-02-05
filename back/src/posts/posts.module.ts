@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Favorite } from 'src/users/entity/user-favorite.entity';
+import { UserFavoriteRepository } from 'src/users/repository/user-favorite.repository';
 import { UserProfileRepository } from 'src/users/repository/user-profile.repository';
 import { UserRepository } from 'src/users/repository/user.repository';
 import { PostInformation } from './entity/post-information.entity';
@@ -14,10 +16,12 @@ import { PostRepository } from './repository/post.repository';
     TypeOrmModule.forFeature([
       PostInformation,
       PostMetadata,
+      Favorite,
       PostRepository,
       UserRepository,
       UserProfileRepository,
       PostLikeRepository,
+      UserFavoriteRepository,
     ]),
   ],
   controllers: [PostsController],
