@@ -36,3 +36,4 @@ lerna-debug.log*
 # volume
 db/data
 db-data
+pgadmin
