@@ -60,6 +60,7 @@ export class UsersController {
   }
 
   @Get('followers/:user_id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation(docs.get['followers/:user_id'].operation)
   @ApiOkResponse(docs.get['followers/:user_id'].response[200])
   @ApiBadRequestResponse(docs.get['followers/:user_id'].response[400])
@@ -67,12 +68,31 @@ export class UsersController {
     return this.usersService.getFollowers(userId);
   }
 
-  @Get('following/:user_id')
+  @Get('followings/:user_id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation(docs.get['following/user_id'].operation)
   @ApiOkResponse(docs.get['following/user_id'].response[200])
   @ApiBadRequestResponse(docs.get['following/user_id'].response[400])
-  getFollowing(@Param('user_id') userId: string): Promise<User[]> {
-    return this.usersService.getFollowers(userId);
+  getFollowings(@Param('user_id') userId: string): Promise<User[]> {
+    return this.usersService.getFollowings(userId);
+  }
+  //팔로잉 하기
+  @Get('following/:user_id')
+  @UseGuards(JwtAuthGuard)
+  getFollowing(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.getFollowing(req.user, userId);
+  }
+  //팔로잉 끊기(언팔)
+  @Delete('following/:user_id')
+  @UseGuards(JwtAuthGuard)
+  unFollowing(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.unFollowing(req.user.id, userId);
+  }
+  //팔로워 끊기
+  @Delete('follower/:user_id')
+  @UseGuards(JwtAuthGuard)
+  unFollower(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.unFollower(req.user.id, userId);
   }
 
   @Get('favorites')

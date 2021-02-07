@@ -84,9 +84,9 @@ export class User {
 
   /** Relations */
 
-  @ManyToMany((type) => User, (user) => user.following)
+  @ManyToMany((type) => User, (user) => user.following, { cascade: true })
   @JoinTable({
-    name: 'follower',
+    name: 'follow',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'follower_id', referencedColumnName: 'id' },
   })
@@ -116,6 +116,8 @@ export class User {
   })
   profile: UserProfile;
 
-  @OneToMany((type) => Favorite, (favorites) => favorites.user)
+  @OneToMany((type) => Favorite, (favorites) => favorites.user, {
+    cascade: true,
+  })
   favorites!: Favorite[];
 }
