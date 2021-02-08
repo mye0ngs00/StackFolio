@@ -8,6 +8,7 @@ import { MailModule } from './mail/mail.module';
 import { ConfigModule } from '@nestjs/config';
 import { config } from './config/configuration';
 import { TagsModule } from './tags/tags.module';
+import { SeriesModule } from './series/series.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TagsModule } from './tags/tags.module';
     PostsModule,
     MailModule,
     TagsModule,
+    SeriesModule,
   ],
   controllers: [],
   providers: [],

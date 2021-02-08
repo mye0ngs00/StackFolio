@@ -18,6 +18,7 @@ import { PostMetadata } from './post-metadata.entity';
 import { Tag } from 'src/tags/entity/tag.entity';
 import { PostComment } from './post-comment.entity';
 import { Favorite } from 'src/users/entity/user-favorite.entity';
+import { Series_posts } from 'src/series/entity/series_post.entity';
 
 @Entity()
 export class Post {
@@ -94,4 +95,7 @@ export class Post {
 
   @OneToMany((type) => Favorite, (favorites) => favorites.post)
   favorites!: Favorite[];
+
+  @OneToMany(() => Series_posts, (series_posts) => series_posts.post)
+  series_posts: Series_posts[];
 }

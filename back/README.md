@@ -1,4 +1,4 @@
-# Velog Clone Backend
+# Stack-Folio 프로젝트
 
 ## Stack
 

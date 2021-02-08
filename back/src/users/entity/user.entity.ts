@@ -24,6 +24,7 @@ import { Post } from '../../posts/entity/post.entity';
 import { UserProfile } from './user-profile.entity';
 import { PostComment } from 'src/posts/entity/post-comment.entity';
 import { Favorite } from './user-favorite.entity';
+import { Series } from 'src/series/entity/series.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -120,4 +121,7 @@ export class User {
     cascade: true,
   })
   favorites!: Favorite[];
+
+  @OneToMany((type) => Series, (series) => series.user)
+  series: Series[];
 }
