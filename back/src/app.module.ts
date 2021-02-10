@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { config } from './config/configuration';
 import { TagsModule } from './tags/tags.module';
 import { SeriesModule } from './series/series.module';
+import { QuestionModule } from './question/question.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { SeriesModule } from './series/series.module';
     MailModule,
     TagsModule,
     SeriesModule,
+    QuestionModule,
   ],
   controllers: [],
   providers: [],

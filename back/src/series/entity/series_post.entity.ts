@@ -1,4 +1,4 @@
-import { IsUUID } from 'class-validator';
+import { IsNumber, IsUUID } from 'class-validator';
 import { Post } from 'src/posts/entity/post.entity';
 import {
   Column,
@@ -26,6 +26,7 @@ export class Series_posts {
   readonly updated_at: Date;
 
   @Column()
+  @IsNumber()
   @Index({ unique: true })
   readonly order: number;
 

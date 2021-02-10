@@ -62,6 +62,12 @@ export class PostsController {
     return this.postsService.updatePost(req.user.id, postId, data);
   }
 
+  //   @Get('like')
+  //   @UseGuards(JwtAuthGuard)
+  //   getLikePosts(@Req() req) {
+  //     return this.postsService.getLikePosts(req.user.id);
+  //   }
+
   @Post('like/:post_id')
   @UseGuards(JwtAuthGuard)
   @HttpCode(204)
