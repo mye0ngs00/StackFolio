@@ -75,7 +75,7 @@
 --     UNIQUE(user_id, comment_id)
 -- );
 
--- CREATE TABLE follower (
+-- CREATE TABLE follow (
 --     id uuid DEFAULT uuid_generate_v4() UNIQUE NOT NULL,
 -- 	created_at timestamp with time zone DEFAULT now() NOT NULL,
 -- 	user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE,

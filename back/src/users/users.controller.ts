@@ -33,6 +33,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('')
+  @ApiOperation(docs.get['users'].operation)
+  @ApiOkResponse(docs.get['users'].response[200])
+  @ApiBadRequestResponse(docs.get['users'].response[400])
   getAllUsers() {
     return this.usersService.getAllUsers();
   }
@@ -60,24 +63,80 @@ export class UsersController {
   }
 
   @Get('followers/:user_id')
+  @UseGuards(JwtAuthGuard)
   @ApiOperation(docs.get['followers/:user_id'].operation)
   @ApiOkResponse(docs.get['followers/:user_id'].response[200])
   @ApiBadRequestResponse(docs.get['followers/:user_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
   getFollowers(@Param('user_id') userId: string): Promise<User[]> {
     return this.usersService.getFollowers(userId);
   }
 
+  @Get('followings/:user_id')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.get['followings/:user_id'].operation)
+  @ApiOkResponse(docs.get['followings/:user_id'].response[200])
+  @ApiBadRequestResponse(docs.get['followings/:user_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
+  getFollowings(@Param('user_id') userId: string): Promise<User[]> {
+    return this.usersService.getFollowings(userId);
+  }
+  //팔로잉 하기
   @Get('following/:user_id')
-  @ApiOperation(docs.get['following/user_id'].operation)
-  @ApiOkResponse(docs.get['following/user_id'].response[200])
-  @ApiBadRequestResponse(docs.get['following/user_id'].response[400])
-  getFollowing(@Param('user_id') userId: string): Promise<User[]> {
-    return this.usersService.getFollowers(userId);
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.get['following/:user_id'].operation)
+  @ApiOkResponse(docs.get['following/:user_id'].response[200])
+  @ApiBadRequestResponse(docs.get['following/:user_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
+  getFollowing(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.getFollowing(req.user, userId);
+  }
+  //팔로잉 끊기(언팔)
+  @Delete('following/:user_id')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.get['following/:user_id'].operation)
+  @ApiOkResponse(docs.get['following/:user_id'].response[200])
+  @ApiBadRequestResponse(docs.get['following/:user_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
+  unFollowing(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.unFollowing(req.user.id, userId);
+  }
+  //팔로워 끊기
+  @Delete('follower/:user_id')
+  @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.delete['follower/:user_id'].operation)
+  @ApiOkResponse(docs.delete['follower/:user_id'].response[200])
+  @ApiBadRequestResponse(docs.delete['follower/:user_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
+  unFollower(@Req() req, @Param('user_id') userId: string) {
+    return this.usersService.unFollower(req.user.id, userId);
   }
 
+  //   @Post('follow/:user_id')
+  //   @UseGuards(JwtAuthGuard)
+  //   @ApiOperation(docs.get['following/user_id'].operation)
+  //   @ApiOkResponse(docs.get['following/user_id'].response[200])
+  //   @ApiBadRequestResponse(docs.get['following/user_id'].response[400])
+  //   @ApiUnauthorizedResponse(docs.unauthorized)
+  //   @HttpCode(200)
+  //   follow(@Param('user_id') userId: string): User {
+  //     /** @todo */
+  //     return {} as any;
+  //   }
+
+  //   @Post('unfollow/:user_id')
+  //   @UseGuards(JwtAuthGuard)
+  //   @ApiOperation(docs.get['following/user_id'].operation)
+  //   @ApiOkResponse(docs.get['following/user_id'].response[200])
+  //   @ApiBadRequestResponse(docs.get['following/user_id'].response[400])
+  //   @ApiUnauthorizedResponse(docs.unauthorized)
+  //   @HttpCode(200)
+  //   unfollow(@Param('user_id') userId: string): User {
+  //     /** @todo */
+  //     return {} as any;
+  //   }
   @Get('favorites')
   @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation(docs.get['favorites'].operation)
   @ApiOkResponse(docs.get['favorites'].response[200])
   @ApiUnauthorizedResponse(docs.unauthorized)
@@ -88,38 +147,28 @@ export class UsersController {
 
   @Get('favorite/:post_id')
   @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.get['favorite/:post_id'].operation)
+  @ApiOkResponse(docs.get['favorite/:post_id'].response[200])
+  @ApiBadRequestResponse(docs.get['favorite/:post_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
   addFavorite(@Req() req, @Param('post_id') post_id: string) {
     return this.usersService.addFavorite(req.user.id, post_id);
   }
   @Delete('favorite/:favorite_id')
   @UseGuards(JwtAuthGuard)
+  @ApiOperation(docs.delete['favorite/:favorite_id'].operation)
+  @ApiOkResponse(docs.delete['favorite/:favorite_id'].response[200])
+  @ApiBadRequestResponse(docs.delete['favorite/:favorite_id'].response[400])
+  @ApiUnauthorizedResponse(docs.unauthorized)
   deleteFavorite(@Req() req, @Param('favorite_id') favorite_id: string) {
     return this.usersService.deleteFavorite(req.user.id, favorite_id);
-  }
-
-  @Post('follow/:user_id')
-  @UseGuards(JwtAuthGuard)
-  @HttpCode(200)
-  @ApiBearerAuth()
-  follow(@Param('user_id') userId: string): User {
-    /** @todo */
-    return {} as any;
-  }
-
-  @Post('unfollow/:user_id')
-  @UseGuards(JwtAuthGuard)
-  @HttpCode(200)
-  @ApiBearerAuth()
-  unfollow(@Param('user_id') userId: string): User {
-    /** @todo */
-    return {} as any;
   }
 
   @Delete('')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation(docs.delete.operation)
-  @ApiOkResponse(docs.delete.response[200])
+  @ApiOperation(docs.delete['user'].operation)
+  @ApiOkResponse(docs.delete['user'].response[200])
   @ApiUnauthorizedResponse(docs.unauthorized)
   deleteUser(@Req() req): Promise<User> {
     return this.usersService.deleteUser(req.user);

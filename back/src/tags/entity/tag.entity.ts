@@ -32,4 +32,7 @@ export class Tag {
 
   @ManyToMany((type) => Post, (post) => post.tags)
   posts: Post[];
+
+  //   @ManyToMany((type) => Question, (questions) => questions.tags)
+  //   questions: Question[];
 }
