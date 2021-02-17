@@ -1,5 +1,5 @@
 import { Box } from 'components/material/Box';
-import { TextButton } from 'components/material/Button';
+import { Button } from 'components/material/Button';
 import { Number } from 'components/material/Number';
 import {Title, Subtitle, Contents} from 'components/material/Text';
 import { getUserProfileData, User_Profile } from 'db/User_Profile';
@@ -124,9 +124,9 @@ const Profile = ({match}:any) => {
             </Box>
             <Box transparent direction="column" justifyContent="flex-start" columnSpace={30}>
                 <Box transparent rowSpace={50}>
-                    <TextButton fontSize={24} onClick={()=>setTabs(0)}> 글</TextButton>
-                    <TextButton fontSize={24} onClick={()=>setTabs(1)}> 시리즈 </TextButton>
-                    <TextButton fontSize={24} onClick={()=>setTabs(2)}> 자기소개 </TextButton>
+                    <Button color="ghost" fontSize={24} onClick={()=>setTabs(0)}> 글</Button>
+                    <Button color="ghost" fontSize={24} onClick={()=>setTabs(1)}> 시리즈 </Button>
+                    <Button color="ghost" fontSize={24} onClick={()=>setTabs(2)}> 자기소개 </Button>
                 </Box>
                 {
                     tabs === 0 ? 

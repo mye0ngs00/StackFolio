@@ -1,4 +1,4 @@
-import SearchField from 'components/home/SearchField';
+import SearchField from 'components/search/SearchField';
 import React from 'react';
 
 const SearchHome = () => {

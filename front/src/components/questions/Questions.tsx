@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { getQuestionData, QuestionData } from 'db/Question'
 import QuestionPreview from 'components/common/QuestionPreview';
 import styled from 'styled-components';
-import SearchField from 'components/home/SearchField';
+import SearchField from 'components/search/SearchField';
+import MainWrapper from 'components/common/MainWrapper';
+import { Box } from 'components/material/Box';
 
 const QuestionsWrapper = styled.div`
     display: grid;
@@ -22,13 +24,15 @@ const Questions = () => {
         })();
     },[])
     return (
-        <>
+        <div style={{width:"100%"}}>
         <SearchField />
-        <QuestionsWrapper>
-            {questions.map( (question:QuestionData, idx:number) => 
-                <QuestionPreview key={idx} {...question}/>)}
-        </QuestionsWrapper>
-        </>
+        <MainWrapper>
+            <QuestionsWrapper>
+                {questions.map( (question:QuestionData, idx:number) => 
+                    <QuestionPreview key={idx} {...question}/>)}
+            </QuestionsWrapper>
+        </MainWrapper>
+        </div>
     )
 }
 

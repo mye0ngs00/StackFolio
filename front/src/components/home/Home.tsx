@@ -1,9 +1,9 @@
 import { userState } from 'atoms/user';
-import { Box } from 'components/material/Box';
+import MainWrapper from 'components/common/MainWrapper';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import SearchField from './SearchField';
+import Main from './Main';
 import Topic from './Topic';
 
 const HomeWrapper = styled.div`
@@ -14,11 +14,15 @@ const Home = () => {
     const [user, setUser] = useRecoilState(userState);
 
     return (
-        <HomeWrapper>
-            <SearchField />
-            <Topic title="요즘 뜨는 트렌드" />
-            <Topic title="최신 포스트" />
-        </HomeWrapper>
+        <div>
+        <Main />
+        <MainWrapper>
+            <HomeWrapper>
+                <Topic title="요즘 뜨는 트렌드" />
+                <Topic title="최신 포스트" />
+            </HomeWrapper>
+        </MainWrapper>
+        </div>
     )
 }
 

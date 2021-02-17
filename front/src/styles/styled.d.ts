@@ -10,7 +10,7 @@ interface Colorset {
 declare module 'styled-components' {
     export interface DefaultTheme {
         mainBackground: string;
-        opposite: string;
+        basic: string;
 
         // neutral color
         title: string;
@@ -18,9 +18,10 @@ declare module 'styled-components' {
         divider: string;
         tableHeader: string;
 
-        //point-color
+        // //point-color
         default: Colorset;
         primary: Colorset;
         secondary: Colorset;
+        ghost: Colorset;
     }
 }

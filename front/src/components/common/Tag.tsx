@@ -6,13 +6,16 @@ import styled from 'styled-components';
 const TagComponent = styled(Button)`
     margin: 0;
     font-size: 1rem;
-    padding: 5px 10px;
+    padding: 6px 12px;
     width: auto;
     border: none;
-    font-weight: bold;
     border-radius: 10px;
-    box-shadow: 1px 1.5px 4px ${({theme}) => theme.default.border};
+    box-shadow: 1px 1.5px 4px ${({theme}) => theme.primary.border};
     text-decoration: none;
+    &:focus-within {
+        outline:none;
+        box-shadow: 0 0 0 1.5px ${({theme}) => theme.primary.border};
+    }
 `
 
 interface TagProps {
@@ -29,21 +32,11 @@ const getTagById = async (name:string) => ({
 });
 const Tag = ({name}:TagProps) => {
     const [loading, setLoading] = useState(false);
-    // const [name, setName] = useState('');
-
-    // useEffect(()=>{
-    //     ( async () => {
-    //         const tag:TagData = await getTagById(name);
-    //         if(!tag) return;
-    //         setName(tag.name);
-    //         setLoading(false);
-    //     })();
-    // }, [id])
 
     return (
         <Link to={`/tags/${name}`} style={{textDecoration:'none'}}>
             <TagComponent>
-                { loading ? '...' : name }
+                { loading ? '...' : name[0].toUpperCase()+name.slice(1) }
             </TagComponent>
         </Link>
     )

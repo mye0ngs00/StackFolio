@@ -1,6 +1,6 @@
 import Tag from 'components/common/Tag';
 import { Box } from 'components/material/Box';
-import { TextButton } from 'components/material/Button';
+import { Button } from 'components/material/Button';
 import Text from 'components/material/Text';
 import { TextField } from 'components/material/Textfield';
 import React, { useState } from 'react';
@@ -26,7 +26,7 @@ const SearchField = ({initialValue}:SearchFieldProps) => {
     const history = useHistory();
     const onSearched = ({which}:any) => which===13 && history.push(`/search/${searchValue}`)
     return (
-        <Box transparent>
+    <Box style={{width:"100%", background:"#27384B"}}>
             <SearchWrapper>
                 <Box transparent>
                     <TextField 
@@ -64,9 +64,9 @@ const Tags = () => {
                 <Tag name="c++"/>
                 <Tag name="database"/>
             </Box>
-            <TextButton bold onClick={()=>history.push('/tags')}> 
+            <Button color="ghost" bold onClick={()=>history.push('/tags')}> 
                 태그 더보기 
-            </TextButton>
+            </Button>
         </TagsDiv>
     )
 }
