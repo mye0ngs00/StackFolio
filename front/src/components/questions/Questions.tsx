@@ -4,7 +4,6 @@ import QuestionPreview from 'components/common/QuestionPreview';
 import styled from 'styled-components';
 import SearchField from 'components/search/SearchField';
 import MainWrapper from 'components/common/MainWrapper';
-import { Box } from 'components/material/Box';
 
 const QuestionsWrapper = styled.div`
     display: grid;
@@ -24,7 +23,7 @@ const Questions = () => {
         })();
     },[])
     return (
-        <div style={{width:"100%"}}>
+        <>
         <SearchField />
         <MainWrapper>
             <QuestionsWrapper>
@@ -32,7 +31,7 @@ const Questions = () => {
                     <QuestionPreview key={idx} {...question}/>)}
             </QuestionsWrapper>
         </MainWrapper>
-        </div>
+        </>
     )
 }
 

@@ -4,6 +4,7 @@ import Text from 'components/material/Text';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import media from 'styles/media';
 
 const Wrapper = styled.div`
     background-color:#27384B;
@@ -11,6 +12,11 @@ const Wrapper = styled.div`
     height: 500px;
     display: grid;
     grid-template-columns: 1.2fr 1fr;
+    ${media.phone`
+        height: 250px;
+        padding: 10px;
+        grid-template-columns: 1fr;
+    `}
 `
 const LeftWrapper = styled.div`
     display: flex;
@@ -18,12 +24,28 @@ const LeftWrapper = styled.div`
     align-items: flex-start;
     justify-content: center;
     padding: 50px 150px;
+    ${media.phone`
+        padding: 5px;
+        & > * {
+            font-size: 36px;
+        }
+        & > *:nth-child(3) > div {
+            font-size: 20px;
+        }
+        & > *:nth-child(3) > button {
+            width: 5rem;
+            margin: 2px 5px;
+        }
+    `}
 `
 const PalletWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap:50px;
     padding: 60px 50px 200px 50px;
+    ${media.phone`
+        display: none;
+    `}
 `
 const Pallet = styled.div`
     ${({color}) => `background-color: ${color};`};

@@ -18,19 +18,17 @@ const Routes = () => {
     // <BrowserRouter>
     <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header />
-        <Box transparent>
-            <Switch>
-                <Route path="/playground" exact component={Playground} />
-                <Route path="/" exact component={Home} />
-                <Route path="/@:id" component={Profile} />
-                <Route exact path="/search" component={SearchHome} />
-                <Route path="/search/:keyword" component={Search} />
-                <Route exact path="/tags" component={Tags} />
-                <Route path="/tags/:id" component={TagDetail} />
-                <Route exact path="/questions" component={Questions} />
-                <Route path="/questions/:id" component={QuestionDetails} />
-            </Switch>
-        </Box>
+        <Switch>
+            <Route path="/playground" exact component={Playground} />
+            <Route path="/" exact component={Home} />
+            <Route path="/@:id" component={Profile} />
+            <Route exact path="/search" component={SearchHome} />
+            <Route path="/search/:keyword" component={Search} />
+            <Route exact path="/tags" component={Tags} />
+            <Route path="/tags/:id" component={TagDetail} />
+            <Route exact path="/questions" component={Questions} />
+            <Route path="/questions/:id" component={QuestionDetails} />
+        </Switch>
     </BrowserRouter>
     )
 }
