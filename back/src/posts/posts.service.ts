@@ -26,8 +26,7 @@ export class PostsService {
 
   async getPostsAll() {
     const posts = await this.postRepository.find();
-    // 왜 post 전체 다 안불러질까?
-    // console.log(posts);
+    console.log('post all');
 
     return { posts };
   }
@@ -71,6 +70,11 @@ export class PostsService {
 
     await this.postRepository.remove(post);
     return { post } as any;
+  }
+
+  async getLikePosts(userId: string) {
+    const posts = this.userRepository.findOne({ id: userId });
+    return { posts } as any;
   }
 
   async likePost(userId: string, postId: string) {

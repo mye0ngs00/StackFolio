@@ -1,4 +1,4 @@
-import { Post } from 'src/posts/entity/post.entity';
+import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator';
 import { User } from 'src/users/entity/user.entity';
 import {
   Column,
@@ -9,10 +9,10 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { IsString, IsBoolean, IsOptional, IsUUID } from 'class-validator';
+import { Question } from './question.entity';
 
 @Entity()
-export class Comment {
+export class QuestionComment {
   /** Columns */
 
   @PrimaryGeneratedColumn('uuid')
@@ -41,7 +41,7 @@ export class Comment {
 
   @Column('uuid')
   @IsUUID('4')
-  post_id: string;
+  question_id: string;
 
   /** Relations */
 
@@ -49,7 +49,9 @@ export class Comment {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
-  @ManyToOne((type) => Post, (post) => post.comments, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'post_id', referencedColumnName: 'id' })
-  post: Post;
+  //   @ManyToOne((type) => Question, (question) => question.comments, {
+  //     onDelete: 'CASCADE',
+  //   })
+  //   @JoinColumn({ name: 'post_id', referencedColumnName: 'id' })
+  //   question: Question;
 }

@@ -9,6 +9,12 @@ import { PostInformation } from '../posts/entity/post-information.entity';
 import { PostLike } from 'src/posts/entity/post-like.entity';
 import { Tag } from 'src/tags/entity/tag.entity';
 import { PostComment } from 'src/posts/entity/post-comment.entity';
+import { Favorite } from 'src/users/entity/user-favorite.entity';
+import { Series_posts } from 'src/series/entity/series_post.entity';
+import { Series } from 'src/series/entity/series.entity';
+import { Question } from 'src/question/entity/question.entity';
+import { QuestionComment } from 'src/question/entity/question-comment.entity';
+import { QuestionLike } from 'src/question/entity/question-like.entity';
 
 const inContainer = Boolean(process.env.IN_CONTAINER);
 const isDev = process.env.NODE_ENV === 'development';
@@ -18,6 +24,12 @@ const entities = [
   Register,
   User,
   UserProfile,
+  Favorite,
+  Series,
+  Series_posts,
+  Question,
+  QuestionComment,
+  QuestionLike,
   Post,
   PostMetadata,
   PostInformation,

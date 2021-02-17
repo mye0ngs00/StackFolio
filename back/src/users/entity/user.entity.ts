@@ -23,6 +23,10 @@ import {
 import { Post } from '../../posts/entity/post.entity';
 import { UserProfile } from './user-profile.entity';
 import { PostComment } from 'src/posts/entity/post-comment.entity';
+import { Favorite } from './user-favorite.entity';
+import { Series } from 'src/series/entity/series.entity';
+import { Question } from 'src/question/entity/question.entity';
+import { QuestionLike } from 'src/question/entity/question-like.entity';
 
 export enum Provider {
   LOCAL = 'local',
@@ -83,9 +87,9 @@ export class User {
 
   /** Relations */
 
-  @ManyToMany((type) => User, (user) => user.following)
+  @ManyToMany((type) => User, (user) => user.following, { cascade: true })
   @JoinTable({
-    name: 'follower',
+    name: 'follow',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
     inverseJoinColumn: { name: 'follower_id', referencedColumnName: 'id' },
   })
@@ -94,17 +98,24 @@ export class User {
   @ManyToMany((type) => User, (user) => user.followers)
   following: User[];
 
-  @ManyToMany((type) => Post)
-  @JoinTable({
-    name: 'favorite',
-    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
-  })
-  favorites: Post[];
+  //   @ManyToMany((type) => Post, { cascade: true })
+  //   @JoinTable({
+  //     name: 'favorite',
+  //     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+  //     inverseJoinColumn: { name: 'post_id', referencedColumnName: 'id' },
+  //   })
+  //   favorites: Post[];
 
   @OneToMany((type) => Post, (post) => post.author)
   posts: Post[];
 
+  @OneToMany((type) => Post, (question) => question.author)
+  questions: Question[];
+
+  @OneToMany((type) => QuestionLike, (question_like) => question_like.author)
+  question_like: QuestionLike[];
+
+  // postcomments와 questioncomments 2개로 나눠야하나?
   @OneToMany((type) => PostComment, (comment) => comment.user)
   comments: Comment[];
 
@@ -114,4 +125,12 @@ export class User {
     eager: true,
   })
   profile: UserProfile;
+
+  @OneToMany((type) => Favorite, (favorites) => favorites.user, {
+    cascade: true,
+  })
+  favorites!: Favorite[];
+
+  @OneToMany((type) => Series, (series) => series.user)
+  series: Series[];
 }

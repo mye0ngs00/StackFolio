@@ -25,10 +25,31 @@ services:
     image: postgres:13.1
     restart: always
     environment:
+      # - POSTGRES_USER=dohan
       - POSTGRES_PASSWORD=passwd
+      # - POSTGRES_DB=velog
     volumes:
       - ./db/data:/var/lib/postgresql/data
       - ./db/init.sql:/docker-entrypoint-initdb.d/1-init.sql
       # - ./db/schema.sql:/docker-entrypoint-initdb.d/2-schema.sql
+    ports:
+      - '5432:5432'
     healthcheck:
       test: pg_isready -h 127.0.0.1
+
+  pgAdmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=dohan@pgadmin.com
+      - PGADMIN_DEFAULT_PASSWORD=passwd
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - '8080:80'
+    volumes:
+      - ./pgadmin/data:/var/lib/pgadmin
+    depends_on:
+      - pg
+    links:
+      - 'pg:pgsql-server'

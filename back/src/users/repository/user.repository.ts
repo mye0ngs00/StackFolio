@@ -31,7 +31,7 @@ export class UserRepository extends Repository<User> {
       if (!register || register.email !== email) {
         throw new BadRequestException();
       }
-
+      console.log('register : ', register);
       // Create new user
       const { provider, social_id } = register;
       const newUser = this.create({
@@ -47,6 +47,7 @@ export class UserRepository extends Repository<User> {
           },
         },
       });
+      console.log('newUser : ', newUser);
 
       await queryRunner.manager.save(newUser);
       await queryRunner.manager.remove(register);
@@ -68,12 +69,19 @@ export class UserRepository extends Repository<User> {
    * @todo Create a query builder to join tables to get the post informations
    * for all the posts a user marked as favorite.
    */
-  async findFavorites(userId: string): Promise<PostInformation[]> {
-    const userProfileRepository = getRepository(UserProfile);
-    const userprofile = await userProfileRepository.findOne({
-      user_id: userId,
-    });
-    const favorites = userprofile.user.favorites;
-    return {} as any;
-  }
+
+  //   async findFavorites(user_id: string): Promise<PostInformation[]> {
+  //     const userProfileRepository = getRepository(UserProfile);
+  //     const userprofile = await userProfileRepository.findOne({
+  //       user_id: user_id,
+  //     });
+  //     console.log('유저프로파일 : ', userprofile);
+  //     // const favorites = userprofile.user.favorites;
+  //     // console.log('즐겨찾기 : ', favorites);
+  //     // return { favorites } as any;
+  //   }
+
+  //   async createFavorite() {
+  //     return;
+  //   }
 }

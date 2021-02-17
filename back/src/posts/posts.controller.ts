@@ -29,8 +29,7 @@ export class PostsController {
     return this.postsService.createPost(req.user.id, data);
   }
 
-  @Get('all')
-  @UseGuards(JwtAuthGuard)
+  @Get('')
   getPostsAll() {
     return this.postsService.getPostsAll();
   }
@@ -62,6 +61,12 @@ export class PostsController {
   ): Promise<_Post> {
     return this.postsService.updatePost(req.user.id, postId, data);
   }
+
+  //   @Get('like')
+  //   @UseGuards(JwtAuthGuard)
+  //   getLikePosts(@Req() req) {
+  //     return this.postsService.getLikePosts(req.user.id);
+  //   }
 
   @Post('like/:post_id')
   @UseGuards(JwtAuthGuard)
