@@ -1,3 +1,4 @@
+import MainWrapper from 'components/common/MainWrapper';
 import { Box } from 'components/material/Box';
 import { Button } from 'components/material/Button';
 import { Number } from 'components/material/Number';
@@ -99,6 +100,7 @@ const Profile = ({match}:any) => {
     },[id])
 
     return (
+    <MainWrapper>
         <Wrapper>
             {/* Profile */}
             <Box direction="column" justifyContent="flex-start">
@@ -137,6 +139,7 @@ const Profile = ({match}:any) => {
                 }
             </Box>
         </Wrapper>
+    </MainWrapper>
     )
 }
 
