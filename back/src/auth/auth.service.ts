@@ -44,18 +44,12 @@ export class AuthService {
         social_id,
         email,
       });
-      const client = 'http://localhost:3000'; /** @todo Update to client url */
+      const client = 'http://localhost:4000'; /** @todo Update to client url */
       const redirectUrl = `${client}/register?code=${register.code}&email=${register.email}`;
       return res.redirect(encodeURI(redirectUrl));
     }
 
-    /** @todo 여기서 redirect랑 return 중 어떻게? */
-    // res.append(
-    //   'Authorization',
-    //   `Bearer ${this.jwtService.sign({ userId: user.id })}`,
-    // );
-    // res.redirect(client);
-
+    // should redirect?
     return {
       accessToken: this.jwtService.sign({ userId: user.id }),
     };
@@ -73,7 +67,7 @@ export class AuthService {
       register = await this.registerRepository.createRegister({ email });
     }
 
-    const client = 'http://localhost:3000'; /** @todo Update to client url */
+    const client = 'http://localhost:4000'; /** @todo Update to client url */
     const redirectUrl = `${client}/register?code=${register.code}&email=${register.email}`;
 
     this.mailService.sendingMail(email, redirectUrl);
@@ -93,7 +87,7 @@ export class AuthService {
       await this.verificationRepository.save(verification);
     }
 
-    const client = 'http://localhost:3000'; /** @todo Update to client url */
+    const client = 'http://localhost:4000'; /** @todo Update to client url */
     const redirectUrl = `${client}/verify?code=${verification.code}`;
 
     this.mailService.sendingMail(email, redirectUrl);

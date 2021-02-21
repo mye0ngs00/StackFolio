@@ -1,6 +1,6 @@
 CREATE USER dohan WITH ENCRYPTED PASSWORD 'passwd';
 
-CREATE DATABASE velog
+CREATE DATABASE stackfolio
     OWNER dohan
     TEMPLATE template0
     ENCODING 'UTF8'
@@ -8,6 +8,6 @@ CREATE DATABASE velog
     LC_CTYPE 'C'
     CONNECTION LIMIT 500;
 
-\c velog
+\c stackfolio
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
