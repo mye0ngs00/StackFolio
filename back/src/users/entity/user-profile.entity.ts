@@ -38,7 +38,6 @@ export class SocialLinks {
 export class UserProfile {
   /** Columns */
 
-  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   readonly id: string;
 

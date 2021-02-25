@@ -9,7 +9,7 @@ export class CreateUserDto {
   @IsString()
   register_code: string;
 
-  @ApiProperty({ example: 'john@do.com' })
+  @ApiProperty({ example: 'john@doe.com' })
   @IsEmail()
   email: string;
 

@@ -10,23 +10,22 @@ export default {
       },
       response: {
         [200]: {
-          description:
-            'If the user is authenticated, we will send them an `access token`.',
+          description: 'User is authenticated.',
           type: AccessTokenDto,
         },
         [301]: {
           description:
-            'If this is the first time a user visits, the user will be redirected to `https://:client/register?code={register_code}&email={users_email}` to fill in their profile.',
+            'User will be redirected on first visit to `https://:client/register?code={register_code}&email={users_email}` to provide necessary information (username and bio).',
         },
       },
     },
     ['verify/:code']: {
       operation: {
         description:
-          'Verifies the verification code a user holds in order to authenticate email login.',
+          'Verifies the verification code a user holds to authenticate email login.',
       },
       response: {
-        [200]: { description: 'User was verified.', type: LoginDto },
+        [200]: { description: 'Verified.', type: LoginDto },
         [400]: { description: 'Invalid verification code.' },
       },
     },
@@ -38,8 +37,11 @@ export default {
           'Sends a **register email** including a link with a register code and the users email as a query `https://:client/register?code={register_code}&email={users_email}`.',
       },
       response: {
-        [201]: { description: 'Mail was successfully sent' },
-        [400]: { description: 'A valid email must be provided.' },
+        [201]: { description: 'Mail was successfully sent.' },
+        [400]: {
+          description:
+            'Invalid email format, or user with the provided email is already signed up.',
+        },
       },
     },
     ['send-login-mail']: {
@@ -49,7 +51,10 @@ export default {
       },
       response: {
         [201]: { description: 'Mail was successfully sent' },
-        [400]: { description: 'A valid email must be provided.' },
+        [400]: {
+          description:
+            'Invalid email format, or a user with the provided email is not registered.',
+        },
       },
     },
     ['register']: {
@@ -58,11 +63,12 @@ export default {
       },
       response: {
         [201]: {
-          description:
-            'User was successfuly created, and we will send them an `access token`',
+          description: 'User was successfuly created.',
           type: AccessTokenDto,
         },
-        [400]: { description: 'Invalid inputs provided.' },
+        [400]: {
+          description: 'Invalid register code or invalid email format.',
+        },
         [409]: { description: 'Username conflict.' },
       },
     },
