@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Main from './Main';
 import Topic from './Topic';
 import TopicQuestions from './TopicQuestions';
+import TrendTags from './TrendTags';
 
 const HomeWrapper = styled.div`
     & > *:nth-child(n+2){margin-top:30px;}
@@ -19,6 +20,7 @@ const Home = () => {
             <Main />
             <MainWrapper>
                 <HomeWrapper>
+                    <TrendTags tags={["javascript", "c++", "python"]}/>
                     <Topic title="인기 있는 스펙 콘텐츠 TOP" />
                     { user && 
                       <Topic title="내가 가장 관심있어하는 토픽" /> 

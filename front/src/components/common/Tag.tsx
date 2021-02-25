@@ -1,6 +1,6 @@
 import { Button } from 'components/material/Button';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const TagComponent = styled(Button)`
@@ -20,6 +20,7 @@ const TagComponent = styled(Button)`
 
 interface TagProps {
     name: string
+    color?: "primary" | "secondary"
 }
 
 interface TagData{
@@ -30,15 +31,15 @@ const getTagById = async (name:string) => ({
     id: 'a100',
     name
 });
-const Tag = ({name}:TagProps) => {
+const Tag = ({name, color}:TagProps) => {
     const [loading, setLoading] = useState(false);
+    color = color || "primary";
+    const history = useHistory();
 
     return (
-        <Link to={`/tags/${name}`} style={{textDecoration:'none'}}>
-            <TagComponent>
-                { loading ? '...' : name[0].toUpperCase()+name.slice(1) }
-            </TagComponent>
-        </Link>
+        <TagComponent color={color} onClick={()=>history.push(`/tags/${name}`)}>
+            { loading ? '...' : name[0].toUpperCase()+name.slice(1) }
+        </TagComponent>
     )
 }
 
