@@ -38,19 +38,7 @@ const LeftWrapper = styled.div`
         }
     `}
 `
-const PalletWrapper = styled.div`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap:50px;
-    padding: 60px 50px 200px 50px;
-    ${media.phone`
-        display: none;
-    `}
-`
-const Pallet = styled.div`
-    ${({color}) => `background-color: ${color};`};
-    box-shadow: 1px 1.5px 4px black;
-`
+
 
 const Main = () => {
     const history = useHistory();
@@ -66,12 +54,7 @@ const Main = () => {
                     </Button>
                 </Box>
             </LeftWrapper>
-            <PalletWrapper>
-                <Pallet color="#F3E3DF"/>
-                <Pallet color="#3B5BC6"/>
-                <Pallet color="#E5E5E5"/>
-                <Pallet color="#27384B"/>
-            </PalletWrapper>
+            <div></div>
         </Wrapper>
     )
 }

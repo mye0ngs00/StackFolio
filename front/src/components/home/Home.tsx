@@ -5,9 +5,10 @@ import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import Main from './Main';
 import Topic from './Topic';
+import TopicQuestions from './TopicQuestions';
 
 const HomeWrapper = styled.div`
-    & > *:nth-child(n+3){margin-top:30px;}
+    & > *:nth-child(n+2){margin-top:30px;}
 `
 const Home = () => {
     const [loading, setLoading] = useState(true);
@@ -15,13 +16,17 @@ const Home = () => {
 
     return (
         <div>
-        <Main />
-        <MainWrapper>
-            <HomeWrapper>
-                <Topic title="요즘 뜨는 트렌드" />
-                <Topic title="최신 포스트" />
-            </HomeWrapper>
-        </MainWrapper>
+            <Main />
+            <MainWrapper>
+                <HomeWrapper>
+                    <Topic title="인기 있는 스펙 콘텐츠 TOP" />
+                    { user && 
+                      <Topic title="내가 가장 관심있어하는 토픽" /> 
+                    }
+                    <TopicQuestions title="스택폴리오 사용자들이 가장 많이 본 질문" />
+                    <TopicQuestions title="답변을 기다리는 질문" />
+                </HomeWrapper>
+            </MainWrapper>
         </div>
     )
 }

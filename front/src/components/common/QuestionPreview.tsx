@@ -52,7 +52,7 @@ const CountBox = ({Icon, value}:CountBoxProps) => {
 
 const QuestionPreview = (props:QuestionData) => {
     const {
-        id, author, title, question, likes, views, comments
+        id, author, title, content, likes, views, comments
     } = props;
 
     return (
@@ -64,7 +64,7 @@ const QuestionPreview = (props:QuestionData) => {
             </Left>
             <Right>
                 <Text left bold>{title}</Text>
-                <Text left>{question}</Text>
+                <Text left>{content}</Text>
                 <Box left transparent rowSpace={10}>
                     <Tag name="Hello World!" />
                     <Tag name="C++" />
