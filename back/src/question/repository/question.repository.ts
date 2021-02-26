@@ -11,10 +11,12 @@ import { User } from 'src/users/entity/user.entity';
 import { UserProfile } from 'src/users/entity/user-profile.entity';
 import { Question } from '../entity/question.entity';
 import { CreateQuestionDto } from '../dto/create-question.dto';
+import { QuestionInformation } from '../entity/question-information.entity';
+import { QuestionMetadata } from '../entity/question-metadata.entity';
 
 @EntityRepository(Question)
 export class QuestionRepository extends Repository<Question> {
-  async createPost(userId: string, data: CreateQuestionDto) {
+  async createQuestion(userId: string, data: CreateQuestionDto) {
     const connection = getConnection();
     const queryRunner = connection.createQueryRunner();
 
@@ -23,22 +25,38 @@ export class QuestionRepository extends Repository<Question> {
 
     try {
       const userRepository = getRepository(User);
-      const questionRepository = getRepository(Question);
+      //   const questionRepository = getRepository(Question);
+      //   const qustionInformationRepository = getRepository(QuestionInformation);
+      //   const qustionMetaDataRepository = getRepository(QuestionMetadata);
 
       const user = await userRepository.findOne({ id: userId });
+      if (!user) {
+        console.log('유저가 없습니다');
+        return;
+      }
 
       let question = new Question();
       question.title = data.title;
       question.contents = data.contents;
 
-      user.questions = [question];
+      const information = new QuestionInformation();
+      const metadata = new QuestionMetadata();
+
+      question.information = information;
+      question.metadata = metadata;
+      question.user_id = user.id;
+
+      //   user.questions = [question];
 
       await queryRunner.manager.save(question);
-      await queryRunner.manager.save(user);
+      await queryRunner.manager.save(information);
+      await queryRunner.manager.save(metadata);
+      //   await queryRunner.manager.save(user);
       await queryRunner.commitTransaction();
 
       return question;
     } catch (error) {
+      console.log(error);
       await queryRunner.rollbackTransaction();
     } finally {
       await queryRunner.release();

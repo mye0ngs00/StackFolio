@@ -72,10 +72,10 @@ export class PostsService {
     return { post } as any;
   }
 
-  async getLikePosts(userId: string) {
-    const posts = this.userRepository.findOne({ id: userId });
-    return { posts } as any;
-  }
+  //   async getLikePosts(userId: string) {
+  //     const posts = this.userRepository.findOne({ id: userId });
+  //     return { posts } as any;
+  //   }
 
   async likePost(userId: string, postId: string) {
     this.postLikeRepository.createPostLike(userId, postId);

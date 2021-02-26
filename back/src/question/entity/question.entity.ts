@@ -7,9 +7,12 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { QuestionInformation } from './question-information.entity';
 import { QuestionLike } from './question-like.entity';
+import { QuestionMetadata } from './question-metadata.entity';
 
 @Entity()
 export class Question {
@@ -44,6 +47,24 @@ export class Question {
   @IsUUID('4')
   question_metadata_id: string;
 
+  @OneToOne(
+    (type) => QuestionInformation,
+    (information) => information.question,
+    {
+      cascade: true,
+      eager: true,
+    },
+  )
+  @JoinColumn({ name: 'question_information_id', referencedColumnName: 'id' })
+  information?: QuestionInformation;
+
+  @OneToOne((type) => QuestionMetadata, (metadata) => metadata.question, {
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'question_metadata_id', referencedColumnName: 'id' })
+  metadata: QuestionMetadata;
+
   @ManyToOne((type) => User, (user) => user.questions, {
     cascade: true,
     eager: true,
@@ -52,6 +73,6 @@ export class Question {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   author: User;
 
-  @OneToMany((type) => QuestionLike, (likes) => likes.quesion_id)
+  @OneToMany((type) => QuestionLike, (likes) => likes.question_id)
   likes: QuestionLike[];
 }

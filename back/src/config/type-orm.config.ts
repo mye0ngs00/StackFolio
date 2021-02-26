@@ -15,6 +15,8 @@ import { Series } from 'src/series/entity/series.entity';
 import { Question } from 'src/question/entity/question.entity';
 import { QuestionComment } from 'src/question/entity/question-comment.entity';
 import { QuestionLike } from 'src/question/entity/question-like.entity';
+import { QuestionInformation } from 'src/question/entity/question-information.entity';
+import { QuestionMetadata } from 'src/question/entity/question-metadata.entity';
 
 const inContainer = Boolean(process.env.IN_CONTAINER);
 const isDev = process.env.NODE_ENV === 'development';
@@ -30,6 +32,8 @@ const entities = [
   Question,
   QuestionComment,
   QuestionLike,
+  QuestionInformation,
+  QuestionMetadata,
   Post,
   PostMetadata,
   PostInformation,

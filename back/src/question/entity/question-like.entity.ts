@@ -13,12 +13,12 @@ import { User } from 'src/users/entity/user.entity';
 import { Question } from './question.entity';
 
 @Entity()
-@Unique(['user_id', 'quesion_id'])
-@Unique(['user_id', 'quesion_comment_id'])
+@Unique(['user_id', 'question_id'])
+@Unique(['user_id', 'question_comment_id'])
 @Check(`
-  COALESCE(LENGTH(quesion_id::text)::boolean::integer, 0)
+  COALESCE(LENGTH(question_id::text)::boolean::integer, 0)
 	+
-	COALESCE(LENGTH(quesion_comment_id::text)::boolean::integer, 0)
+	COALESCE(LENGTH(question_comment_id::text)::boolean::integer, 0)
   = 1
 `)
 export class QuestionLike {
@@ -37,11 +37,11 @@ export class QuestionLike {
 
   @Column('uuid', { nullable: true })
   @IsUUID('4')
-  quesion_id: string;
+  question_id: string;
 
   @Column('uuid', { nullable: true })
   @IsUUID('4')
-  quesion_comment_id: string;
+  question_comment_id: string;
 
   @ManyToOne((type) => User, (user) => user.question_like, {
     cascade: true,
@@ -51,9 +51,9 @@ export class QuestionLike {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   author: User;
 
-  @ManyToOne((type) => Question, (qeustion) => qeustion.likes)
+  @ManyToOne((type) => Question, (question) => question.likes)
   @JoinColumn({ name: 'quesion_id' })
-  qeustion!: Question;
+  question!: Question;
 
   //   @ManyToOne((type) => Question, (qeustion) => qeustion.likes)
   //   @JoinColumn({ name: 'quesion_id' })

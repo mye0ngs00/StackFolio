@@ -12,10 +12,6 @@ import {
   ConflictException,
   NotFoundException,
 } from '@nestjs/common';
-import { User } from 'src/users/entity/user.entity';
-import { UserProfile } from 'src/users/entity/user-profile.entity';
-import { PostInformation } from '../entity/post-information.entity';
-import { PostMetadata } from '../entity/post-metadata.entity';
 import { PostLike } from '../entity/post-like.entity';
 
 @EntityRepository(PostLike)

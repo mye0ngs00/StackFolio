@@ -14,13 +14,13 @@ import { PostRepository } from './repository/post.repository';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      PostRepository,
+      PostLikeRepository,
       PostInformation,
       PostMetadata,
       Favorite,
-      PostRepository,
       UserRepository,
       UserProfileRepository,
-      PostLikeRepository,
       UserFavoriteRepository,
     ]),
   ],

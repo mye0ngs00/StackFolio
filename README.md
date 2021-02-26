@@ -1,5 +1,7 @@
 # Stack-Folio 프로젝트
 
+demo : https://dannylisa.github.io/stackfolio-demo/@swimmie
+
 # # 프로젝트 기간 🔥
 
 - 2020.01.01 - 2020.04.01
@@ -26,7 +28,7 @@
 
 - E-mail : dannylisa67@gmail.com
 
-[???](https://github.com/)
+[명수](https://github.com/)
 
 - E-mail :
 
@@ -47,7 +49,8 @@
 ## # UIUX
 
 ## # Front
-  React
+
+React
 
 ## # Back
 
