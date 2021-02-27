@@ -71,14 +71,18 @@ export class QuestionController {
     return this.questionService.deletePost(req.user.id, question_id);
   }
 
-  @Get("comment/:question_id")
-  getComments(@Param("question_id") question_id: string) {
+  @Get('comment/:question_id')
+  getComments(@Param('question_id') question_id: string) {
     return this.questionService.getComments(question_id);
   }
 
-  @Post("comment/:question_id")
+  @Post('comment/:question_id')
   @UseGuards(JwtAuthGuard)
-  createComment(@Req() req, @Param("question_id" ) question_id: string, @Body() data: CreateCommentQuestionDto){
+  createComment(
+    @Req() req,
+    @Param('question_id') question_id: string,
+    @Body() data: CreateCommentQuestionDto,
+  ) {
     return this.questionService.createComment(req.user.id, question_id, data);
   }
 }

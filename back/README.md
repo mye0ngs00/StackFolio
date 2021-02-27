@@ -23,7 +23,7 @@ Shell로 연결이 되었으면 `psql -U postgres`로 접속해서 아래와 같
 
 ```sql
 -- Superuser로 접속
-psql -U postgres
+psql -U dohan postgres
 -- velog 데이터베이스로 연결
 \c velog
 -- Relation 정보 출력

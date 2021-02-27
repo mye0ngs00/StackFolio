@@ -15,7 +15,6 @@ export class QuestionService {
     private readonly questionRepository: QuestionRepository,
     private readonly questionLikeRepository: QuestionLikeRepository,
     private readonly questionCommentRepository: QuestionCommentRepository,
-
   ) {}
 
   async createQuestion(userId: string, data: CreateQuestionDto) {
@@ -73,12 +72,26 @@ export class QuestionService {
     return {} as any;
   }
   async getComments(question_id: string) {
-    const comments = await this.questionCommentRepository.find({question_id});
-    return {comments} as any;
+    const comments = await this.questionCommentRepository.find({
+      //   question_id,
+      where: {
+        question_id,
+      },
+      order: { group: 'ASC', sorts: 'ASC' },
+    });
+    return { comments } as any;
   }
 
-  async createComment(userId: string,question_id: string,  data: CreateCommentQuestionDto) {
-    await this.questionCommentRepository.createQuestionComment(userId,question_id,  data);
+  async createComment(
+    userId: string,
+    question_id: string,
+    data: CreateCommentQuestionDto,
+  ) {
+    await this.questionCommentRepository.createQuestionComment(
+      userId,
+      question_id,
+      data,
+    );
 
     return {} as any;
   }
