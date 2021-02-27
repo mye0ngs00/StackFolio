@@ -5,6 +5,8 @@ import { QuestionRepository } from './repository/question.repository';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { QuestionLikeRepository } from './repository/question-like.repository';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { QuestionCommentRepository } from './repository/question-comment.repository';
+import { CreateCommentQuestionDto } from './dto/create_comment_question';
 
 @Injectable()
 export class QuestionService {
@@ -12,6 +14,8 @@ export class QuestionService {
     @InjectRepository(Question)
     private readonly questionRepository: QuestionRepository,
     private readonly questionLikeRepository: QuestionLikeRepository,
+    private readonly questionCommentRepository: QuestionCommentRepository,
+
   ) {}
 
   async createQuestion(userId: string, data: CreateQuestionDto) {
@@ -66,6 +70,16 @@ export class QuestionService {
     });
 
     await this.questionLikeRepository.remove(unlikePost);
+    return {} as any;
+  }
+  async getComments(question_id: string) {
+    const comments = await this.questionCommentRepository.find({question_id});
+    return {comments} as any;
+  }
+
+  async createComment(userId: string,question_id: string,  data: CreateCommentQuestionDto) {
+    await this.questionCommentRepository.createQuestionComment(userId,question_id,  data);
+
     return {} as any;
   }
 }

@@ -10,6 +10,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { QuestionComment } from './question-comment.entity';
 import { QuestionInformation } from './question-information.entity';
 import { QuestionLike } from './question-like.entity';
 import { QuestionMetadata } from './question-metadata.entity';
@@ -75,4 +76,7 @@ export class Question {
 
   @OneToMany((type) => QuestionLike, (likes) => likes.question_id)
   likes: QuestionLike[];
+
+  @OneToMany((type)=> QuestionComment, (comments)=>comments.question )
+  comments: Comment[]
 }

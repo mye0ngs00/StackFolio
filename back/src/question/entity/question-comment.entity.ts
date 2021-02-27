@@ -3,6 +3,7 @@ import { User } from 'src/users/entity/user.entity';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -15,8 +16,24 @@ import { Question } from './question.entity';
 export class QuestionComment {
   /** Columns */
 
-  @PrimaryGeneratedColumn('uuid')
-  readonly id: string;
+  @PrimaryGeneratedColumn()
+  readonly id: number;
+  
+  @Column({default: 1})
+  @IsOptional()
+   group?: number;
+
+  @Column({default: 0})
+  @IsOptional()
+   sorts?: number;
+
+  @Column({default: 0})
+  @IsOptional()
+   depth?: number;
+
+  @Column('text')
+  @IsString()
+  contents: string;
 
   @Column('timestamptz')
   @CreateDateColumn()
@@ -26,14 +43,16 @@ export class QuestionComment {
   @UpdateDateColumn()
   readonly updated_at: Date;
 
-  @Column('text')
-  @IsString()
-  contents: string;
+  @Column("timestamptz")
+  @DeleteDateColumn()
+  readonly deleted_at: Date;
 
-  @Column({ default: false })
-  @IsBoolean()
-  @IsOptional()
-  deleted: boolean;
+  
+
+  // @Column({ default: false })
+  // @IsBoolean()
+  // @IsOptional()
+  // deleted: boolean;
 
   @Column('uuid')
   @IsUUID('4')
@@ -49,9 +68,9 @@ export class QuestionComment {
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
-  //   @ManyToOne((type) => Question, (question) => question.comments, {
-  //     onDelete: 'CASCADE',
-  //   })
-  //   @JoinColumn({ name: 'post_id', referencedColumnName: 'id' })
-  //   question: Question;
+  @ManyToOne((type) => Question, (question) => question.comments, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'question_id', referencedColumnName: 'id' })
+  question: Question;
 }

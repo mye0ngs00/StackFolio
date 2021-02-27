@@ -6,7 +6,7 @@ import {
   getRepository,
   Repository,
 } from 'typeorm';
-import { BadRequestException, ConflictException } from '@nestjs/common';
+import { BadRequestException, ConflictException, NotFoundException } from '@nestjs/common';
 import { User } from 'src/users/entity/user.entity';
 import { UserProfile } from 'src/users/entity/user-profile.entity';
 import { Question } from '../entity/question.entity';
@@ -28,11 +28,9 @@ export class QuestionRepository extends Repository<Question> {
       //   const questionRepository = getRepository(Question);
       //   const qustionInformationRepository = getRepository(QuestionInformation);
       //   const qustionMetaDataRepository = getRepository(QuestionMetadata);
-
       const user = await userRepository.findOne({ id: userId });
       if (!user) {
-        console.log('유저가 없습니다');
-        return;
+        throw new NotFoundException("질문을 작성할 유저가 존재하지 않습니다!");
       }
 
       let question = new Question();
