@@ -54,15 +54,15 @@ const light: DefaultTheme = {
       accent: '#f0f0f0'
     },
     primary: {
-      main: '#ff9425',
+      main: '#FF9E3A',
       text: `#fff`,
-      border: `rgba(0, 0, 0, 0.5)`,
+      border: `rgba(255, 148, 37, 0.5)`,
       accent: `#f57e00`
     },
     secondary: {
       main: '#dbe0e6',
       text: `rgba(0, 0, 0, 0.75)`,
-      border: `rgba(0, 0, 0, 0.2)`,
+      border: `rgba(0, 0, 0, 0)`,
       accent: `#c3cbd5`
     },
     ghost: {

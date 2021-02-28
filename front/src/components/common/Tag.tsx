@@ -6,12 +6,12 @@ import styled from 'styled-components';
 const TagComponent = styled(Button)`
     margin: 0;
     font-size: 1rem;
-    padding: 6px 12px;
+    padding: 3px 9px;
     width: auto;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 1px 1.5px 4px ${({theme}) => theme.primary.border};
     text-decoration: none;
+    opacity: 0.9;
+    box-sizing: border-box;
+    border-radius: 9px;
     &:focus-within {
         outline:none;
         box-shadow: 0 0 0 1.5px ${({theme}) => theme.primary.border};

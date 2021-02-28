@@ -73,7 +73,7 @@ const PostPreview = (props:PostData) => {
     return (
         <Wrapper>
             <TagsWrapper>
-                {tags.map(tag => <Tag key={tag} name={tag}/>)}
+                {tags.map(tag => <Tag key={tag} color={'secondary'} name={tag}/>)}
             </TagsWrapper>
             <Image src={thumbnail} alt="img"/>
             <Text bold left fontSize={21}>{title}</Text>

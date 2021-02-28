@@ -67,8 +67,8 @@ const QuestionPreview = (props:QuestionData) => {
                 <Text left bold>{title}</Text>
                 <Text left>{content}</Text>
                 <Box left transparent rowSpace={10}>
-                    <Tag name="Hello World!" />
-                    <Tag name="C++" />
+                    <Tag color={'secondary'} name="Hello World!" />
+                    <Tag color={'secondary'}name="C++" />
                 </Box>
                 <Text>{author}</Text>
             </Right>
