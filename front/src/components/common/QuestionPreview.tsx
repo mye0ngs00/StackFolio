@@ -15,27 +15,27 @@ import previewStyle from '../../styles/previewStyle'
 const Wrapper = styled(Link)`
     ${previewStyle}
     display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 33.3% 66.6%;
     max-width: 100%;
-    padding: 10px;
-    min-height: 144px;
+    padding: 0px 20px 17px 25px;
+    min-height: 114px;
     text-decoration:none;
 `;
 const Left = styled.div`
     display: grid;
-    padding-right:10px;
+    padding: 0px 45px 0px 0px;
     grid-template-columns: repeat(3, 33.33%);
 `
 const Right = styled.div`
     display: grid;
     grid-template-areas: 
         "t t"
-        "s s"
-        "tags info";
-    grid-template-columns: calc(100% - 150px);
-    grid-template-rows: 35% 35% 30%;
+        "s info";
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 66% 34%;
     & > *:first-child{grid-area: t}
     & > *:nth-child(2){grid-area: s}
+    & > *:nth-child(3){grid-area: info}
 `
 
 interface CountBoxProps {
@@ -46,7 +46,7 @@ const CountBox = ({Icon, value}:CountBoxProps) => {
     return (
         <Box transparent direction="column">
             <Number fontSize={24} value={value}/>
-            <Icon size={30}/>
+            <Icon size={24}/>
         </Box>
     )
 }
@@ -55,7 +55,11 @@ const QuestionPreview = (props:QuestionData) => {
     const {
         id, author, title, content, likes, views, comments
     } = props;
-
+    // TODO [임시] 조상노드에서 map으로 변환 작업 필요.
+    const mappedTimestamp: Array<string> = '2021-01-02'.split('-')
+    //
+    // TODO color theme지정 필요
+    // TODO 글씨체 변경 필요
     return (
         <Wrapper to={`/questions/${id}`}>
             <Left>
@@ -64,13 +68,15 @@ const QuestionPreview = (props:QuestionData) => {
                 <CountBox Icon={IoPeopleOutline} value={views} />
             </Left>
             <Right>
-                <Text left bold>{title}</Text>
-                <Text left>{content}</Text>
+                <Text font-size={24} left bold>{title}</Text>
+                {/* 여기 생략하는지? <Text left>{content}</Text> */}
                 <Box left transparent rowSpace={10}>
-                    <Tag color={'secondary'} name="Hello World!" />
-                    <Tag color={'secondary'}name="C++" />
+                    <Tag font-size={21} color={'secondary'} name="Hello World!" />
+                    <Tag font-size={21} color={'secondary'} name="C++" />
                 </Box>
-                <Text>{author}</Text>
+                <Text color={'#909090'}>
+                    {`${mappedTimestamp[0]}년 ${mappedTimestamp[1]}월 ${mappedTimestamp[2]}일 ${author}`}
+                </Text>
             </Right>
         </Wrapper>
     )

@@ -60,9 +60,9 @@ const light: DefaultTheme = {
       accent: `#f57e00`
     },
     secondary: {
-      main: '#dbe0e6',
+      main: '#E8E8E8',
       text: `rgba(0, 0, 0, 0.75)`,
-      border: `rgba(0, 0, 0, 0)`,
+      border: `rgba(232, 232, 232, 0.2)`,
       accent: `#c3cbd5`
     },
     ghost: {
