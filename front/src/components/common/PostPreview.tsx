@@ -8,8 +8,10 @@ import { AiOutlineLike } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import media from 'styles/media';
 import { useHistory } from 'react-router-dom';
+import previewStyle from '../../styles/previewStyle'
 
 const Wrapper = styled.div`
+    ${previewStyle}
     display: grid;
     grid-template-rows: 40px 40px 60px 16px 55px;
     grid-template-columns: 70% 30%;
@@ -27,7 +29,6 @@ const Wrapper = styled.div`
     & > div:nth-child(6){grid-area:author;}
     & > div:nth-child(7){grid-area:likes;}
     max-width: 100%;
-    box-shadow: 2px 2px 10px grey;
     padding: 10px 10px 5px 10px;
     ${media.phone`
         grid-template-rows: 200px 40px 60px 16px 55px;

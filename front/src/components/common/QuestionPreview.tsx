@@ -10,12 +10,13 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Tag from './Tag';
 import { Number } from 'components/material/Number';
+import previewStyle from '../../styles/previewStyle'
 
 const Wrapper = styled(Link)`
+    ${previewStyle}
     display: grid;
     grid-template-columns: 30% 70%;
     max-width: 100%;
-    box-shadow: 2px 2px 10px grey;
     padding: 10px;
     min-height: 144px;
     text-decoration:none;
