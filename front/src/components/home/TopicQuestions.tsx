@@ -1,11 +1,11 @@
-import { Box } from 'components/material/Box';
-import PostPreview from 'components/common/PostPreview';
-import Text from 'components/material/Text';
 import React, { useState, useEffect } from 'react';
+import { Box } from 'components/material/Box';
+import Text from 'components/material/Text';
 import styled from 'styled-components';
-import { PostData } from 'db/Post';
-import { getTopicData } from 'db/Topic';
+import { getTopicQuestionsData } from 'db/TopicQuestions';
 import media from 'styles/media';
+import QuestionPreview from 'components/common/QuestionPreview';
+import { QuestionData } from 'db/Question';
 
 const TopicWrapper = styled.div`
     width: 100%;
@@ -36,15 +36,15 @@ interface TopicProps{
     title: string
 }
 
-// 홈 화면에 노출되는 Topic
-// 게시글 미리보기 4개를 담고 있음.
-const Topic = ({title}:TopicProps) => {
+// 홈 화면에 노출되는 질문 모아보기 컴포넌트
+// 질문 미리보기 4개를 담고 있음.
+const TopicQuestions = ({title}:TopicProps) => {
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState<PostData[]>([]);
+    const [questions, setQuestions] = useState<QuestionData[]>([]);
     useEffect(()=>{
         (async () => {
-            const postsData = await getTopicData(title);
-            setPosts(postsData.posts);
+            const questionsData = await getTopicQuestionsData(title);
+            setQuestions(questionsData.questions);
             setLoading(false);
         })();
     },[])
@@ -60,8 +60,8 @@ const Topic = ({title}:TopicProps) => {
                 {
                     loading ? <>Loading...</>
                     :
-                    posts.map((post:PostData, idx:number) =>(
-                        <PostPreview key={idx} {...post} />
+                    questions.map((question:QuestionData, idx:number) =>(
+                        <QuestionPreview key={idx} {...question} />
                     ))
                 }
             </TopicWrapper>
@@ -69,4 +69,4 @@ const Topic = ({title}:TopicProps) => {
     );
 }
 
-export default Topic;
+export default TopicQuestions;

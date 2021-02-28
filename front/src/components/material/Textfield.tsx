@@ -7,17 +7,17 @@ interface TextFieldProps extends ComponentPropsWithRef<"input"> {
 }
 
 export const TextField = styled.input<TextFieldProps>`
-    padding: 10px;
+    padding: 5px;
     margin: 10px;
     size: ${({size}) => size};
     width: ${ ({fullWidth, width}) => fullWidth ? '100%' : width ? width+'px' : '10rem' };
     height: ${({height}) => height ? height+'px' : ''};
-    background: ${ ({theme}) => theme.default.main };
-    border-color: ${ ({theme}) => theme.default.border };
-    border-radius: 3px;
-    color: ${ ({theme}) => theme.default.text };
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    color: white;
     &:focus{
-        outline-color: ${ ({theme}) => theme.default.accent };
+        outline: none;
     }
     ::placeholder {
         color: ${ ({theme}) => theme.disable };

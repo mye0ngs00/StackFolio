@@ -8,7 +8,7 @@ import Tag from './common/Tag';
 const Playground = () => {
     const [checked, setChecked] = useState(true);
     return (
-        <>
+        <Box direction="column">
         <Box>
             Buttons
             <Button color="primary" onClick={()=>{alert('hello!')}}>
@@ -17,10 +17,12 @@ const Playground = () => {
             <Button color="secondary">
                 Secondary
             </Button>
-            <Button >
-                default
+            <Button color="ghost" >
+                ghost
             </Button>
         </Box>
+        <hr/>
+            <Tag name="hello" />
         <hr/>
         <Box>
             Text Field
@@ -36,7 +38,7 @@ const Playground = () => {
             <Switch size='md' checked={!checked} onChange={()=>setChecked(prev=>!prev)}/>
             <Switch size='lg'/>
         </Box>
-        </>
+        </Box>
     )
 }
 

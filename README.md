@@ -24,7 +24,7 @@
 
 [이수영](https://github.com/dannylisa)
 
-- E-mail :
+- E-mail : dannylisa67@gmail.com
 
 [???](https://github.com/)
 
@@ -47,6 +47,7 @@
 ## # UIUX
 
 ## # Front
+  React
 
 ## # Back
 

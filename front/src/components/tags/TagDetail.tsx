@@ -1,13 +1,10 @@
-import Preview from 'components/common/PostPreview';
+import MainWrapper from 'components/common/MainWrapper';
 import Text from 'components/material/Text';
 import { getTagData } from 'db/Tag';
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import media from 'styles/media';
 
-const Wrapper = styled.div`
-    width: min(100%, 1470px);
-`
 const HeadWrapper = styled.div`
     margin-bottom: 45px;
     & > * :first-child{
@@ -40,7 +37,7 @@ const TagDetail = ({match}:any) => {
         })();
     }, [id])
     return (
-        <>
+        <MainWrapper>
             <HeadWrapper>
                 <Text fontSize={48} left bold >#{name} </Text>
                 <Text fontSize={21} left>태그내용 설명 </Text>
@@ -54,7 +51,7 @@ const TagDetail = ({match}:any) => {
             </HeadWrapper>
             <BodyWrapper>
             </BodyWrapper>
-        </>
+        </MainWrapper>
     )
 }
 
