@@ -13,7 +13,7 @@ const Text = styled(Box)<TextProps>`
     background-color: transparent;
     color: ${({color}) => color || ''};
     font-weight: ${({bold}) => bold ? 'bold' : 'normal'};
-    font-size: ${({fontSize}) => fontSize+'px' || '1rem'};
+    font-size: ${({fontSize}) => fontSize ? fontSize+'px' : '1rem'};
 `
 
 export const Head = (props:TextProps) => <Text fontSize={48} bold left {...props}/>

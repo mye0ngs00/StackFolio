@@ -29,6 +29,7 @@ const TopicWrapper = styled.div`
         height: 30px;
         margin-bottom: -20px;
     }
+    padding: 0 15px;
     gap: 30px;
 `;
 
