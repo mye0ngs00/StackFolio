@@ -61,26 +61,16 @@ const light: DefaultTheme = {
     primary: {
       main: '#ff9425',
       text: `#fff`,
-<<<<<<< Updated upstream
-      border: `rgba(0, 0, 0, 0.5)`,
-      accent: `#f57e00`
-=======
       border: `rgba(255, 148, 37, 0.5)`,
       accent: `#f57e00`,
       disabled: '#FFC485'
->>>>>>> Stashed changes
     },
     secondary: {
       main: '#dbe0e6',
       text: `rgba(0, 0, 0, 0.75)`,
-<<<<<<< Updated upstream
-      border: `rgba(0, 0, 0, 0.2)`,
-      accent: `#c3cbd5`
-=======
       border: `rgba(232, 232, 232, 0.2)`,
       accent: `#c3cbd5`,
       disabled: '#F0F0F0'
->>>>>>> Stashed changes
     },
     ghost: {
       main: 'transparent',
