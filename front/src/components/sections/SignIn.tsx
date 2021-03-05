@@ -86,8 +86,9 @@ const SocialButton = styled.button`
     border-radius: 30px;
     border: black solid 1px;
     background: none;
-    display: grid;
-    grid-template-columns: 35% auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 24px;
     outline: none;
     & > div { 
@@ -174,27 +175,21 @@ const SignIn = () => {
                 <Separator> 또는 </Separator>
                 <SocialButtonWrapper>
                 <SocialButton>
-                    <Box transparent right>
                         <FcGoogle size={32}/> 
-                    </Box>
                     <Box transparent left>
-                        Google로 계속
+                        Google로 {isSignInMode ? "계속" : "회원가입"}
                     </Box>
                 </SocialButton>
                 <SocialButton>
-                    <Box transparent right>
-                        <IoLogoFacebook color="#3b5998" size={32}/>
-                    </Box>
+                    <IoLogoFacebook color="#3b5998" size={32}/>
                     <Box transparent left>
-                        Facebook으로 계속
+                        Facebook으로 {isSignInMode ? "계속" : "회원가입"}
                     </Box>
                 </SocialButton>
                 <SocialButton>
-                    <Box transparent right>
-                        <IoLogoGithub color="#111" size={32}/>
-                    </Box>
+                    <IoLogoGithub color="#111" size={32}/>
                     <Box transparent left>
-                        Github로 계속
+                        Github로 {isSignInMode ? "계속" : "회원가입"}
                     </Box>
                 </SocialButton>
                 </SocialButtonWrapper>
